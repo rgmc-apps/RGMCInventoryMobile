@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RGMC Inventory</string>
+    <string name="scanner">Scanner</string>
+    <string name="products">Products</string>
+    <string name="notes">Notes</string>
+    <string name="signing">Signatures</string>
+    <string name="export">Export</string>
+</resources>

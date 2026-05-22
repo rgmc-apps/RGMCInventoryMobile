@@ -1,0 +1,5 @@
+-keep class com.rgmc.inventory.data.** { *; }
+-keepattributes Signature
+-keepattributes *Annotation*
+-dontwarn okhttp3.**
+-dontwarn retrofit2.**

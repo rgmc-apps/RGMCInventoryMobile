@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Brand" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <Spinner android:id="@+id/spinnerBrand" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Customer" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <Spinner android:id="@+id/spinnerCustomer" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Store" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <Spinner android:id="@+id/spinnerStore" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Coordinator" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <Spinner android:id="@+id/spinnerCoordinator" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cut-Off Date" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <Spinner android:id="@+id/spinnerCutOff" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Location" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <Spinner android:id="@+id/spinnerLocation" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Rack" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <EditText
+            android:id="@+id/etRack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="1"
+            android:hint="Rack number"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Encoder / Auditor Name" android:textStyle="bold" android:layout_marginTop="8dp"/>
+        <EditText
+            android:id="@+id/etEncoder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Enter your name"/>
+
+        <Button
+            android:id="@+id/btnEnter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Inventory"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="#1A237E"/>
+
+    </LinearLayout>
+</ScrollView>

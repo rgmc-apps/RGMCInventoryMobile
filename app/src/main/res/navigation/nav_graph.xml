@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.rgmc.inventory.ui.main.MainFragment"
+        android:label="RGMC Inventory"
+        tools:layout="@layout/fragment_main">
+        <action android:id="@+id/action_main_to_scannerSetup" app:destination="@id/scannerSetupFragment"/>
+        <action android:id="@+id/action_main_to_productMain" app:destination="@id/productMainFragment"/>
+        <action android:id="@+id/action_main_to_notes" app:destination="@id/notesFragment"/>
+        <action android:id="@+id/action_main_to_signingList" app:destination="@id/signingListFragment"/>
+        <action android:id="@+id/action_main_to_export" app:destination="@id/exportFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/scannerSetupFragment"
+        android:name="com.rgmc.inventory.ui.scanner.ScannerSetupFragment"
+        android:label="Scanner Setup"
+        tools:layout="@layout/fragment_scanner_setup">
+        <action android:id="@+id/action_scannerSetup_to_scannerInventory" app:destination="@id/scannerInventoryFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/scannerInventoryFragment"
+        android:name="com.rgmc.inventory.ui.scanner.ScannerInventoryFragment"
+        android:label="Inventory"
+        tools:layout="@layout/fragment_scanner_inventory">
+        <action android:id="@+id/action_scannerInventory_to_barcodeScanner" app:destination="@id/barcodeScannerFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/barcodeScannerFragment"
+        android:name="com.rgmc.inventory.ui.scanner.BarcodeScannerFragment"
+        android:label="Scan Barcode"
+        tools:layout="@layout/fragment_barcode_scanner"/>
+
+    <fragment
+        android:id="@+id/productMainFragment"
+        android:name="com.rgmc.inventory.ui.product.ProductMainFragment"
+        android:label="Products"
+        tools:layout="@layout/fragment_product_main">
+        <action android:id="@+id/action_productMain_to_productList" app:destination="@id/productListFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.rgmc.inventory.ui.product.ProductListFragment"
+        android:label="Product List"
+        tools:layout="@layout/fragment_product_list"/>
+
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.rgmc.inventory.ui.notes.NotesFragment"
+        android:label="Notes"
+        tools:layout="@layout/fragment_notes">
+        <action android:id="@+id/action_notes_to_noteEntry" app:destination="@id/noteEntryFragment">
+            <argument android:name="noteId" app:argType="integer" android:defaultValue="0"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/noteEntryFragment"
+        android:name="com.rgmc.inventory.ui.notes.NoteEntryFragment"
+        android:label="Note"
+        tools:layout="@layout/fragment_note_entry">
+        <argument android:name="noteId" app:argType="integer" android:defaultValue="0"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signingListFragment"
+        android:name="com.rgmc.inventory.ui.signing.SigningListFragment"
+        android:label="Signatures"
+        tools:layout="@layout/fragment_signing_list">
+        <action android:id="@+id/action_signingList_to_signing" app:destination="@id/signingFragment">
+            <argument android:name="personnelId" app:argType="integer" android:defaultValue="0"/>
+            <argument android:name="name" app:argType="string" android:defaultValue=""/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signingFragment"
+        android:name="com.rgmc.inventory.ui.signing.SigningFragment"
+        android:label="Sign"
+        tools:layout="@layout/fragment_signing">
+        <argument android:name="personnelId" app:argType="integer" android:defaultValue="0"/>
+        <argument android:name="name" app:argType="string" android:defaultValue=""/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/exportFragment"
+        android:name="com.rgmc.inventory.ui.export.ExportFragment"
+        android:label="Export"
+        tools:layout="@layout/fragment_export"/>
+
+</navigation>
