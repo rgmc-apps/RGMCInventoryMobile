@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.rgmc.inventory.R
+import com.rgmc.inventory.data.local.entity.StoreInventoryCutOffEntity
 import com.rgmc.inventory.databinding.FragmentExportBinding
 import com.rgmc.inventory.ui.viewmodel.ExportViewModel
 import com.rgmc.inventory.ui.viewmodel.ScannerViewModel
@@ -21,6 +23,8 @@ class ExportFragment : Fragment() {
     private val binding get() = _binding!!
     private val exportVm: ExportViewModel by viewModels()
     private val scannerVm: ScannerViewModel by activityViewModels()
+
+    private var currentCutOffs: List<StoreInventoryCutOffEntity> = emptyList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentExportBinding.inflate(inflater, container, false)
@@ -35,13 +39,7 @@ class ExportFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             exportVm.state.collectLatest { s ->
                 binding.progressBar.isVisible = s.isLoading
-                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, s.cutOffs.map { it.cutOffDate })
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.spinnerCutOff.adapter = adapter
-                binding.spinnerCutOff.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(p: android.widget.AdapterView<*>?, v: View?, pos: Int, id: Long) { if (s.cutOffs.isNotEmpty()) exportVm.onCutOffSelected(s.cutOffs[pos]) }
-                    override fun onNothingSelected(p: android.widget.AdapterView<*>?) {}
-                }
+                setupCutOffSpinner(s.cutOffs)
                 s.message?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() }
             }
         }
@@ -52,5 +50,24 @@ class ExportFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() { super.onDestroyView(); _binding = null }
+    private fun setupCutOffSpinner(cutOffs: List<StoreInventoryCutOffEntity>) {
+        if (cutOffs == currentCutOffs) return
+        currentCutOffs = cutOffs
+        val items = listOf("Select Cut-Off Date") + cutOffs.map { it.cutOffDate }
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        binding.spinnerCutOff.adapter = adapter
+        binding.spinnerCutOff.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p: android.widget.AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                if (pos > 0) exportVm.onCutOffSelected(cutOffs[pos - 1])
+            }
+            override fun onNothingSelected(p: android.widget.AdapterView<*>?) {}
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        currentCutOffs = emptyList()
+    }
 }

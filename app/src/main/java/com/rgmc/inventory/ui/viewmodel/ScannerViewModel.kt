@@ -23,6 +23,7 @@ data class ScannerSetupState(
     val rack: Int = 1,
     val encoder: String = "",
     val isLoading: Boolean = false,
+    val isCutOffLoading: Boolean = false,
     val error: String? = null
 )
 
@@ -55,7 +56,7 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
 
     fun loadInitialData() {
         viewModelScope.launch {
-            _setupState.update { it.copy(isLoading = true) }
+            _setupState.update { ScannerSetupState(isLoading = true) }
             try {
                 brandRepo.fetchAndCacheBrands()
                 storeRepo.fetchAndCacheStores()
@@ -92,8 +93,9 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
 
     fun onStoreSelected(store: CustomerStoreEntity) {
         viewModelScope.launch {
+            _setupState.update { it.copy(selectedStore = store, cutOffs = emptyList(), selectedCutOff = null, isCutOffLoading = true) }
             val cutOffs = storeRepo.getCutOffsByStore(store.storeId)
-            _setupState.update { it.copy(selectedStore = store, cutOffs = cutOffs, selectedCutOff = null) }
+            _setupState.update { it.copy(cutOffs = cutOffs, isCutOffLoading = false) }
         }
     }
 

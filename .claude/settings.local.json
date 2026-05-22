@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-Content *)",
+      "Bash(adb connect *)",
+      "PowerShell(adb connect *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb connect 192.168.100.32:36677)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb devices)",
+      "PowerShell(Test-NetConnection *)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb connect 192.168.100.32:36677 2>&1; & $adb devices 2>&1)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb pair 192.168.100.32:44337 706602)",
+      "PowerShell($env:ANDROID_HOME = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\"; Set-Location \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\"; cmd /c \"gradlew.bat assembleDebug 2>&1\")",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell($env:ANDROID_HOME = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\"; Set-Location \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\"; .\\\\gradlew.bat assembleDebug 2>&1)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; $apk = \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\debug\\\\app-debug.apk\"; & $adb -s 192.168.100.32:36677 install -r $apk)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb connect 192.168.100.32:36677; & $adb devices)",
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb pair 192.168.100.32:43285 449017)"
+    ]
+  }
+}

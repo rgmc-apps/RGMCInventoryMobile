@@ -1,12 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1A237E</color>
-    <color name="colorPrimaryDark">#0D1460</color>
-    <color name="colorAccent">#3949AB</color>
-    <color name="colorBackground">#F5F5F5</color>
-    <color name="variance_negative">#C62828</color>
-    <color name="variance_positive">#2E7D32</color>
-    <color name="variance_zero">#546E7A</color>
+    <!-- Backgrounds -->
+    <color name="colorBackground">#080C18</color>
+    <color name="colorSurface">#0D1426</color>
+    <color name="colorSurfaceVariant">#111B35</color>
+    <color name="colorBorder">#1A2E4A</color>
+    <color name="colorDivider">#131F38</color>
+
+    <!-- Brand Blues -->
+    <color name="colorPrimary">#1A56DB</color>
+    <color name="colorPrimaryDark">#1239A5</color>
+    <color name="colorPrimaryLight">#3B82F6</color>
+    <color name="colorAccent">#0891B2</color>
+    <color name="colorAccentLight">#22D3EE</color>
+
+    <!-- Text -->
+    <color name="colorTextPrimary">#E2E8F0</color>
+    <color name="colorTextSecondary">#64748B</color>
+    <color name="colorTextMuted">#2D3F56</color>
+    <color name="colorTextOnPrimary">#FFFFFF</color>
+
+    <!-- Status -->
+    <color name="colorPositive">#16A34A</color>
+    <color name="colorNegative">#DC2626</color>
+    <color name="colorWarning">#D97706</color>
+    <color name="colorNeutral">#334155</color>
+
+    <!-- Variance (kept for adapter compatibility) -->
+    <color name="variance_negative">#EF4444</color>
+    <color name="variance_positive">#22C55E</color>
+    <color name="variance_zero">#64748B</color>
+
+    <!-- Module Accents -->
+    <color name="colorModuleScanner">#1D4ED8</color>
+    <color name="colorModuleProducts">#0E7490</color>
+    <color name="colorModuleNotes">#7C3AED</color>
+    <color name="colorModuleSigning">#059669</color>
+    <color name="colorModuleExport">#B45309</color>
+
+    <!-- Utility -->
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+
+    <!-- ActionBar -->
+    <color name="colorActionBar">#0D1426</color>
 </resources>

@@ -35,7 +35,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             val brands = brandRepo.getBrandsLocal()
             val groups = brandRepo.getItemGroupsLocal()
-            _state.update { it.copy(brands = brands, itemGroups = groups) }
+            _state.update { it.copy(brands = brands, itemGroups = groups, categories = emptyList(), selectedBrand = null, selectedItemGroup = null, selectedCategory = null) }
         }
     }
 

@@ -16,50 +16,57 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <View
-        android:layout_width="250dp"
-        android:layout_height="150dp"
+        android:layout_width="260dp"
+        android:layout_height="160dp"
         android:background="@drawable/scanner_overlay"
         app:layout_constraintTop_toTopOf="@+id/previewView"
         app:layout_constraintBottom_toBottomOf="@+id/previewView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.45"/>
 
-    <androidx.cardview.widget.CardView
+    <!-- Scan result card -->
+    <LinearLayout
         android:id="@+id/scanResultCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:visibility="gone"
-        app:cardCornerRadius="0dp"
+        android:background="@color/colorSurface"
+        android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp"
-            android:background="#E8EAF6">
+        <TextView android:id="@+id/tvBarcode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/colorPrimaryLight" android:textStyle="bold" android:textSize="15sp" android:fontFamily="monospace"/>
+        <TextView android:id="@+id/tvDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/colorTextPrimary" android:textSize="13sp" android:layout_marginTop="2dp"/>
+        <TextView android:id="@+id/tvPrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/colorTextSecondary" android:textSize="13sp" android:layout_marginTop="2dp"/>
 
-            <TextView android:id="@+id/tvBarcode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textStyle="bold" android:textSize="16sp"/>
-            <TextView android:id="@+id/tvDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#333"/>
-            <TextView android:id="@+id/tvPrice" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
-                <TextView android:id="@+id/tvNavQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center"/>
-                <TextView android:id="@+id/tvScannedQty" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center"/>
-                <TextView android:id="@+id/tvVariance" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:background="@drawable/bg_stat_pill_blue" android:padding="8dp" android:layout_marginEnd="4dp">
+                <TextView android:id="@+id/tvNavQty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/colorPrimaryLight" android:textStyle="bold" android:textSize="16sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="NAV" android:textColor="@color/colorTextSecondary" android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:background="@drawable/bg_stat_pill_green" android:padding="8dp" android:layout_marginEnd="4dp">
+                <TextView android:id="@+id/tvScannedQty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/colorPositive" android:textStyle="bold" android:textSize="16sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SCANNED" android:textColor="@color/colorTextSecondary" android:textSize="9sp"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:background="@drawable/bg_stat_pill_red" android:padding="8dp">
+                <TextView android:id="@+id/tvVariance" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/variance_negative" android:textStyle="bold" android:textSize="16sp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="VAR" android:textColor="@color/colorTextSecondary" android:textSize="9sp"/>
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
+    <!-- Bottom controls -->
     <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="#1A237E"
+        android:background="@color/colorSurface"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -67,30 +74,37 @@
         <Button
             android:id="@+id/btnBack"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Back"
-            android:backgroundTint="#455A64"
+            android:text="BACK"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="13sp"
+            android:background="@drawable/bg_button_secondary"
             android:layout_marginEnd="8dp"/>
 
         <EditText
             android:id="@+id/etQty"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="48dp"
             android:text="1"
             android:inputType="number"
             android:hint="Qty"
-            android:textColor="@android:color/white"
-            android:backgroundTint="@android:color/white"
+            android:textColor="@color/colorTextPrimary"
+            android:textColorHint="@color/colorTextSecondary"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:background="@drawable/bg_input_field"
             android:layout_marginEnd="8dp"/>
 
         <Button
             android:id="@+id/btnTorch"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Torch ON"
-            android:backgroundTint="#F57F17"/>
+            android:text="TORCH"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:background="@drawable/bg_button_secondary"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

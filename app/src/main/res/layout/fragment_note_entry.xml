@@ -3,15 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/colorBackground"
+    android:padding="20dp">
 
     <EditText
         android:id="@+id/etTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:hint="Title"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        android:textColor="@color/colorTextPrimary"
+        android:textColorHint="@color/colorTextSecondary"
         android:inputType="text"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
         android:layout_marginBottom="12dp"/>
 
     <EditText
@@ -19,16 +25,26 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="Note text..."
+        android:hint="Write your note here..."
+        android:textColor="@color/colorTextPrimary"
+        android:textColorHint="@color/colorTextSecondary"
+        android:textSize="14sp"
         android:inputType="textMultiLine"
-        android:gravity="top"
-        android:layout_marginBottom="12dp"/>
+        android:gravity="top|start"
+        android:background="@drawable/bg_input_field"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="14dp"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:backgroundTint="#1A237E"/>
+        android:layout_height="54dp"
+        android:text="SAVE NOTE"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:letterSpacing="0.08"
+        android:background="@drawable/bg_button_primary"/>
 
 </LinearLayout>

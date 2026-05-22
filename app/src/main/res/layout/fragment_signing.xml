@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/colorBackground"
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/tvPersonnelName"
@@ -11,22 +12,24 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:textColor="@color/colorTextPrimary"
+        android:layout_marginBottom="4dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please sign below:"
-        android:textColor="#666"
-        android:layout_marginBottom="8dp"/>
+        android:text="Please sign in the area below"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="13sp"
+        android:layout_marginBottom="16dp"/>
 
     <com.rgmc.inventory.util.SignatureView
         android:id="@+id/signatureView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#FFFFFF"
-        android:layout_marginBottom="12dp"/>
+        android:background="@color/colorSurface"
+        android:layout_marginBottom="16dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,27 +39,33 @@
         <Button
             android:id="@+id/btnClear"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Clear"
-            android:backgroundTint="#B0BEC5"
+            android:text="CLEAR"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="13sp"
+            android:background="@drawable/bg_button_secondary"
             android:layout_marginEnd="8dp"/>
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Save"
-            android:backgroundTint="#1A237E"
+            android:text="SAVE"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:background="@drawable/bg_button_primary"
             android:layout_marginEnd="8dp"/>
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Cancel"
-            android:backgroundTint="#C62828"/>
+            android:text="CANCEL"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:background="@drawable/bg_button_danger"/>
     </LinearLayout>
 </LinearLayout>

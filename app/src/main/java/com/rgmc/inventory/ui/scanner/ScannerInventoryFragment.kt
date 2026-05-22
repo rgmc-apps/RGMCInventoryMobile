@@ -39,9 +39,9 @@ class ScannerInventoryFragment : Fragment() {
                 adapter.submitList(list)
                 val totalNav = list.sumOf { it.qty }
                 val totalScanned = list.sumOf { it.actualQty }
-                binding.tvNavQty.text = "NAV: $totalNav"
-                binding.tvScannedQty.text = "Scanned: $totalScanned"
-                binding.tvVariance.text = "Variance: ${totalScanned - totalNav}"
+                binding.tvNavQty.text = "$totalNav"
+                binding.tvScannedQty.text = "$totalScanned"
+                binding.tvVariance.text = "${totalScanned - totalNav}"
                 binding.progressBar.isVisible = false
             }
         }

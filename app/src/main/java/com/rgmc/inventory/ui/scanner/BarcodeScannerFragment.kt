@@ -54,9 +54,9 @@ class BarcodeScannerFragment : Fragment() {
                 binding.tvBarcode.text = result.barcode
                 binding.tvDescription.text = result.description
                 binding.tvPrice.text = "₱ ${"%.2f".format(result.price)}"
-                binding.tvNavQty.text = "NAV: ${result.navQty}"
-                binding.tvScannedQty.text = "Scanned: ${result.scannedQty}"
-                binding.tvVariance.text = "Variance: ${result.variance}"
+                binding.tvNavQty.text = "${result.navQty}"
+                binding.tvScannedQty.text = "${result.scannedQty}"
+                binding.tvVariance.text = "${result.variance}"
                 binding.scanResultCard.isVisible = true
             }
         }

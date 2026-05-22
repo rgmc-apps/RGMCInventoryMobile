@@ -1,33 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/colorBackground"
+    android:padding="20dp">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimaryLight"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Export Inventory"
-        android:textSize="22sp"
+        android:text="EXPORT SETTINGS"
+        android:textColor="@color/colorTextSecondary"
+        android:textSize="11sp"
+        android:letterSpacing="0.12"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="10dp"/>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cut-Off Date" android:textStyle="bold"/>
-    <Spinner android:id="@+id/spinnerCutOff" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="24dp"/>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
+        android:layout_marginBottom="28dp"
+        app:cardBackgroundColor="@color/colorSurface"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/colorBorder"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUT-OFF DATE" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+            <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp">
+                <Spinner android:id="@+id/spinnerCutOff" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
+            </FrameLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <Button
         android:id="@+id/btnExport"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:text="Export All &amp; Close Cut-Off"
-        android:textSize="16sp"
-        android:backgroundTint="#1A237E"/>
+        android:layout_height="54dp"
+        android:text="EXPORT ALL &amp; CLOSE CUT-OFF"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        android:letterSpacing="0.06"
+        android:background="@drawable/bg_button_primary"/>
+
 </LinearLayout>

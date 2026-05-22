@@ -21,9 +21,9 @@ class InventoryAdapter : ListAdapter<StoreInventoryNAVEntity, InventoryAdapter.V
         with(holder.binding) {
             tvBarcode.text = item.barcode
             tvDescription.text = item.description
-            tvNavQty.text = "NAV: ${item.qty}"
-            tvScanned.text = "Scanned: ${item.actualQty}"
-            tvVariance.text = "Var: ${item.variance}"
+            tvNavQty.text = "${item.qty}"
+            tvScanned.text = "${item.actualQty}"
+            tvVariance.text = "${item.variance}"
             val color = when {
                 item.variance < 0 -> R.color.variance_negative
                 item.variance > 0 -> R.color.variance_positive
