@@ -1,12 +1,12 @@
 package com.rgmc.inventory.ui.scanner
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -21,6 +21,7 @@ import com.google.mlkit.vision.common.InputImage
 import com.rgmc.inventory.databinding.FragmentBarcodeScannerBinding
 import com.rgmc.inventory.ui.viewmodel.ScannerViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutorService
@@ -52,11 +53,39 @@ class BarcodeScannerFragment : Fragment() {
             vm.lastScan.collectLatest { result ->
                 result ?: return@collectLatest
                 binding.tvBarcode.text = result.barcode
-                binding.tvDescription.text = result.description
-                binding.tvPrice.text = "₱ ${"%.2f".format(result.price)}"
-                binding.tvNavQty.text = "${result.navQty}"
-                binding.tvScannedQty.text = "${result.scannedQty}"
-                binding.tvVariance.text = "${result.variance}"
+                binding.tvFormat.text = result.format
+                when {
+                    !result.isAccepted -> {
+                        binding.statusHeader.setBackgroundColor(Color.parseColor("#EF4444"))
+                        binding.tvStatus.text = "REJECTED"
+                        binding.tvRejectionReason.text = result.rejectionReason
+                        binding.tvRejectionReason.isVisible = true
+                        binding.tvDescription.isVisible = false
+                        binding.tvPrice.isVisible = false
+                        binding.statsRow.isVisible = false
+                    }
+                    !result.inNavList -> {
+                        binding.statusHeader.setBackgroundColor(Color.parseColor("#F59E0B"))
+                        binding.tvStatus.text = "NOT IN NAV LIST"
+                        binding.tvRejectionReason.isVisible = false
+                        binding.tvDescription.isVisible = false
+                        binding.tvPrice.isVisible = false
+                        binding.statsRow.isVisible = false
+                    }
+                    else -> {
+                        binding.statusHeader.setBackgroundColor(Color.parseColor("#22C55E"))
+                        binding.tvStatus.text = "ACCEPTED"
+                        binding.tvRejectionReason.isVisible = false
+                        binding.tvDescription.text = result.description
+                        binding.tvDescription.isVisible = true
+                        binding.tvPrice.text = "₱ ${"%.2f".format(result.price)}"
+                        binding.tvPrice.isVisible = true
+                        binding.tvNavQty.text = "${result.navQty}"
+                        binding.tvScannedQty.text = "${result.scannedQty}"
+                        binding.tvVariance.text = "${result.variance}"
+                        binding.statsRow.isVisible = true
+                    }
+                }
                 binding.scanResultCard.isVisible = true
             }
         }
@@ -103,24 +132,51 @@ class BarcodeScannerFragment : Fragment() {
         val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
-                for (barcode in barcodes) {
-                    val raw = barcode.rawValue ?: continue
-                    if (barcode.format == Barcode.FORMAT_EAN_13 && raw.length == 13) {
-                        if (isProcessing.compareAndSet(false, true)) {
-                            onBarcodeDetected(raw)
-                        }
-                    }
+                val barcode = barcodes.firstOrNull { it.rawValue != null } ?: return@addOnSuccessListener
+                val raw = barcode.rawValue ?: return@addOnSuccessListener
+                if (!isProcessing.compareAndSet(false, true)) return@addOnSuccessListener
+                val fmt = barcode.format
+                val fmtName = formatName(fmt)
+                if (fmt == Barcode.FORMAT_EAN_13 || fmt == Barcode.FORMAT_CODE_128) {
+                    onBarcodeAccepted(raw, fmtName)
+                } else {
+                    onBarcodeRejected(raw, fmtName)
                 }
             }
             .addOnCompleteListener { imageProxy.close() }
     }
 
-    private fun onBarcodeDetected(barcode: String) {
+    private fun formatName(format: Int): String = when (format) {
+        Barcode.FORMAT_EAN_13 -> "EAN-13"
+        Barcode.FORMAT_EAN_8 -> "EAN-8"
+        Barcode.FORMAT_CODE_128 -> "Code 128"
+        Barcode.FORMAT_CODE_39 -> "Code 39"
+        Barcode.FORMAT_CODE_93 -> "Code 93"
+        Barcode.FORMAT_QR_CODE -> "QR Code"
+        Barcode.FORMAT_DATA_MATRIX -> "Data Matrix"
+        Barcode.FORMAT_UPC_A -> "UPC-A"
+        Barcode.FORMAT_UPC_E -> "UPC-E"
+        Barcode.FORMAT_PDF417 -> "PDF417"
+        Barcode.FORMAT_AZTEC -> "Aztec"
+        Barcode.FORMAT_ITF -> "ITF"
+        Barcode.FORMAT_CODABAR -> "Codabar"
+        else -> "Unknown"
+    }
+
+    private fun onBarcodeAccepted(barcode: String, format: String) {
         mediaPlayer?.start()
         val deviceId = Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
         val qty = binding.etQty.text.toString().toIntOrNull() ?: 1
         viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            vm.processBarcodeScan(barcode, qty, deviceId)
+            vm.processBarcodeScan(barcode, format, qty, deviceId)
+            isProcessing.set(false)
+        }
+    }
+
+    private fun onBarcodeRejected(barcode: String, format: String) {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            vm.reportScanRejected(barcode, format, "Only EAN-13 and Code 128 are accepted")
+            delay(1500)
             isProcessing.set(false)
         }
     }

@@ -15,6 +15,7 @@
         <action android:id="@+id/action_main_to_notes" app:destination="@id/notesFragment"/>
         <action android:id="@+id/action_main_to_signingList" app:destination="@id/signingListFragment"/>
         <action android:id="@+id/action_main_to_export" app:destination="@id/exportFragment"/>
+        <action android:id="@+id/action_main_to_openSessions" app:destination="@id/openSessionsFragment"/>
     </fragment>
 
     <fragment
@@ -96,5 +97,13 @@
         android:name="com.rgmc.inventory.ui.export.ExportFragment"
         android:label="Export"
         tools:layout="@layout/fragment_export"/>
+
+    <fragment
+        android:id="@+id/openSessionsFragment"
+        android:name="com.rgmc.inventory.ui.scanner.OpenSessionsFragment"
+        android:label="Open Sessions"
+        tools:layout="@layout/fragment_open_sessions">
+        <action android:id="@+id/action_openSessions_to_scannerInventory" app:destination="@id/scannerInventoryFragment"/>
+    </fragment>
 
 </navigation>

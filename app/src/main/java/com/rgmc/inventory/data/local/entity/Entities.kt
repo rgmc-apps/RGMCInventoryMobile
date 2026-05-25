@@ -191,3 +191,24 @@ data class SettingEntity(
     val invDate: String = "",
     val cutOffDate: String = ""
 )
+
+@Entity(tableName = "scanning_sessions")
+data class ScanningSessionEntity(
+    @PrimaryKey(autoGenerate = true) val sessionId: Int = 0,
+    val brandId: Int = 0,
+    val brandName: String = "",
+    val customerId: Int = 0,
+    val customerName: String = "",
+    val storeId: Int = 0,
+    val storeName: String = "",
+    val cutOffDate: String = "",
+    val locationId: Int = 0,
+    val locationName: String = "",
+    val rack: Int = 1,
+    val encoder: String = "",
+    val coordinatorName: String = "",
+    val createdAt: String = "",
+    val lastModifiedAt: String = "",
+    val status: String = "open",
+    val totalScanned: Int = 0
+)

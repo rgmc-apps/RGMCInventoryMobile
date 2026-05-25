@@ -35,7 +35,7 @@ interface ApiService {
     suspend fun getNavList(@Path("storeId") storeId: Int): Response<List<StoreInventoryNAVDto>>
 
     @POST("api/storeinventory/barcodelist")
-    suspend fun getBarcodeList(@Body request: StoreInventoryRequestDto): Response<List<BarcodeDto>>
+    suspend fun getBarcodeList(@Body request: BarcodeListRequestDto): Response<List<BarcodeDto>>
 
     @POST("api/storeinventory/invlist")
     suspend fun getInventoryList(@Body request: StoreInventoryRequestDto): Response<List<StoreInventoryDto>>

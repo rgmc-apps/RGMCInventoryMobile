@@ -2,7 +2,7 @@ package com.rgmc.inventory.data.repository
 
 import com.rgmc.inventory.data.local.AppDatabase
 import com.rgmc.inventory.data.local.entity.*
-import com.rgmc.inventory.data.remote.ApiService
+import com.rgmc.inventory.data.remote.*
 
 class StoreRepository(private val db: AppDatabase, private val api: ApiService) {
     suspend fun fetchAndCacheStores(): Result<Unit> = runCatching {
@@ -13,7 +13,10 @@ class StoreRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.customerStoreDao().deleteAll()
             db.customerStoreDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/customerstore"
+        )
     }
 
     suspend fun fetchAndCacheCustomers(): Result<Unit> = runCatching {
@@ -24,7 +27,10 @@ class StoreRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.customerDao().deleteAll()
             db.customerDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/store/customer"
+        )
     }
 
     suspend fun fetchAndCacheLocations(): Result<Unit> = runCatching {
@@ -35,18 +41,24 @@ class StoreRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.storeInventoryLocationDao().deleteAll()
             db.storeInventoryLocationDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/storeinventorylocation"
+        )
     }
 
     suspend fun fetchAndCacheCutOffs(): Result<Unit> = runCatching {
         val resp = api.getAllCutOffs()
         if (resp.isSuccessful) {
             val entities = resp.body()?.map {
-                StoreInventoryCutOffEntity(it.storeCutOff, it.storeId, it.cutOffDate, it.isActive, it.createBy, it.createDate, it.updateBy, it.updateDate)
+                StoreInventoryCutOffEntity("${it.storeId}_${it.cutOffDate}", it.storeId, it.cutOffDate, it.isActive, it.createBy, it.createDate, it.updateBy, it.updateDate)
             } ?: emptyList()
             db.storeInventoryCutOffDao().deleteAll()
             db.storeInventoryCutOffDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/storeinventorycutoff"
+        )
     }
 
     suspend fun getAllStores() = db.customerStoreDao().getAllStores()
@@ -58,11 +70,21 @@ class StoreRepository(private val db: AppDatabase, private val api: ApiService) 
     suspend fun getAllCutOffs() = db.storeInventoryCutOffDao().getAllCutOffs()
     suspend fun getCutOffsByStore(storeId: Int) = db.storeInventoryCutOffDao().getCutOffsByStore(storeId)
     suspend fun createCutOff(storeId: Int, cutOffDate: String, createBy: String): Result<Unit> = runCatching {
-        val resp = api.createCutOff(com.rgmc.inventory.data.remote.StoreInventoryCutOffRequestDto(storeId, cutOffDate, createBy))
-        if (!resp.isSuccessful) throw Exception("API error: ${resp.code()}")
+        val resp = api.createCutOff(StoreInventoryCutOffRequestDto(storeId, cutOffDate, createBy))
+        if (!resp.isSuccessful) throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventorycutoff/create",
+            "storeId=$storeId, cutOffDate=$cutOffDate"
+        )
     }
     suspend fun closeCutOff(storeId: Int, cutOffDate: String, createBy: String): Result<Unit> = runCatching {
-        val resp = api.closeCutOff(com.rgmc.inventory.data.remote.StoreInventoryCutOffRequestDto(storeId, cutOffDate, createBy))
-        if (!resp.isSuccessful) throw Exception("API error: ${resp.code()}")
+        val resp = api.closeCutOff(StoreInventoryCutOffRequestDto(storeId, cutOffDate, createBy))
+        if (!resp.isSuccessful) throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventorycutoff/close",
+            "storeId=$storeId, cutOffDate=$cutOffDate"
+        )
     }
 }

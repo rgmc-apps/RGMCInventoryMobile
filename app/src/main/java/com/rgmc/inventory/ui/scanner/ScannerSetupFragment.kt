@@ -66,6 +66,7 @@ class ScannerSetupFragment : Fragment() {
             vm.onEncoderChanged(binding.etEncoder.text.toString())
             vm.onRackChanged(binding.etRack.text.toString().toIntOrNull() ?: 1)
             vm.saveSetting()
+            vm.createSession()
             vm.loadNavList(state.selectedStore.storeId)
             findNavController().navigate(R.id.action_scannerSetup_to_scannerInventory)
         }

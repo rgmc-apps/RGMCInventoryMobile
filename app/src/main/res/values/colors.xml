@@ -33,6 +33,7 @@
 
     <!-- Module Accents -->
     <color name="colorModuleScanner">#1D4ED8</color>
+    <color name="colorModuleSessions">#4338CA</color>
     <color name="colorModuleProducts">#0E7490</color>
     <color name="colorModuleNotes">#7C3AED</color>
     <color name="colorModuleSigning">#059669</color>

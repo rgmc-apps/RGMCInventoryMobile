@@ -2,7 +2,7 @@ package com.rgmc.inventory.data.repository
 
 import com.rgmc.inventory.data.local.AppDatabase
 import com.rgmc.inventory.data.local.entity.*
-import com.rgmc.inventory.data.remote.ApiService
+import com.rgmc.inventory.data.remote.*
 import kotlinx.coroutines.flow.Flow
 
 class BrandRepository(private val db: AppDatabase, private val api: ApiService) {
@@ -16,7 +16,10 @@ class BrandRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.brandDao().deleteAll()
             db.brandDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/brand"
+        )
     }
 
     suspend fun fetchAndCacheCoordinators(): Result<Unit> = runCatching {
@@ -27,7 +30,10 @@ class BrandRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.brandCoordinatorDao().deleteAll()
             db.brandCoordinatorDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/brand/coordinator"
+        )
     }
 
     suspend fun fetchAndCacheItemGroups(): Result<Unit> = runCatching {
@@ -38,7 +44,10 @@ class BrandRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.itemGroupDao().deleteAll()
             db.itemGroupDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/itemgroup"
+        )
     }
 
     suspend fun fetchAndCacheCategories(): Result<Unit> = runCatching {
@@ -49,7 +58,10 @@ class BrandRepository(private val db: AppDatabase, private val api: ApiService) 
             } ?: emptyList()
             db.categoryDao().deleteAll()
             db.categoryDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/category"
+        )
     }
 
     suspend fun getBrandsLocal() = db.brandDao().getAllBrandsList()

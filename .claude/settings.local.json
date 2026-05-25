@@ -15,7 +15,17 @@
       "PowerShell($env:ANDROID_HOME = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\"; Set-Location \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\"; .\\\\gradlew.bat assembleDebug 2>&1)",
       "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; $apk = \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\debug\\\\app-debug.apk\"; & $adb -s 192.168.100.32:36677 install -r $apk)",
       "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb connect 192.168.100.32:36677; & $adb devices)",
-      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb pair 192.168.100.32:43285 449017)"
+      "PowerShell($adb = \"$env:LOCALAPPDATA\\\\Android\\\\Sdk\\\\platform-tools\\\\adb.exe\"; & $adb pair 192.168.100.32:43285 449017)",
+      "PowerShell(keytool *)",
+      "PowerShell(& \"C:\\\\Program Files\\\\Java\\\\jdk-23\\\\bin\\\\keytool.exe\" -genkeypair -v -keystore \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\rgmc_release.jks\" -alias rgmc_key -keyalg RSA -keysize 2048 -validity 10000 -storepass \"RGMCInv2024!\" -keypass \"RGMCInv2024!\" -dname \"CN=RGMC Inventory, OU=IT, O=RGMC, L=Unknown, ST=Unknown, C=PH\" 2>&1)",
+      "Bash(Get-ChildItem -Path \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\" -Directory)",
+      "Bash(Select-Object Name)",
+      "WebFetch(domain:rgmcinventoryapi-935246372408.asia-southeast1.run.app)",
+      "Bash(curl *)",
+      "Bash(./gradlew assembleRelease)",
+      "Bash(copy \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\release\\\\app-release.apk\" \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app-release.apk\")",
+      "Bash(dir \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app-release.apk\")",
+      "PowerShell(Copy-Item *)"
     ]
   }
 }

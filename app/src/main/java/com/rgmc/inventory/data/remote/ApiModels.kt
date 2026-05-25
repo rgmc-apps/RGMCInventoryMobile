@@ -157,3 +157,19 @@ data class StoreInventoryCutOffRequestDto(
     val cutOffDate: String,
     val createBy: String
 )
+
+data class BarcodeListRequestDto(
+    val storeId: Int,
+    val cutOffDate: String,
+    val type: String = "EAN_13",
+    val text: String = "",
+    val createBy: String = ""
+)
+
+class ApiException(
+    message: String,
+    val statusCode: Int,
+    val errorBody: String,
+    val endpoint: String,
+    val requestBody: String = ""
+) : Exception(message)

@@ -24,9 +24,10 @@ import com.rgmc.inventory.data.local.entity.*
         StoreInventoryPersonnelEntity::class,
         ProductImageEntity::class,
         NoteEntity::class,
-        SettingEntity::class
+        SettingEntity::class,
+        ScanningSessionEntity::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -46,6 +47,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun productImageDao(): ProductImageDao
     abstract fun noteDao(): NoteDao
     abstract fun settingDao(): SettingDao
+    abstract fun scanningSessionDao(): ScanningSessionDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null

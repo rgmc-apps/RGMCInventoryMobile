@@ -66,5 +66,7 @@ class ScannerInventoryFragment : Fragment() {
         }
     }
 
+    override fun onPause() { super.onPause(); vm.updateSessionActivity() }
+
     override fun onDestroyView() { super.onDestroyView(); _binding = null }
 }

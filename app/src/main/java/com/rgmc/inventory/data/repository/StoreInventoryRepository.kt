@@ -21,18 +21,27 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
             } ?: emptyList()
             db.storeInventoryNAVDao().deleteByStore(storeId)
             db.storeInventoryNAVDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "", "GET api/storeinventory/navlist/$storeId"
+        )
     }
 
     suspend fun fetchAndCacheBarcodeList(storeId: Int, cutOffDate: String): Result<Unit> = runCatching {
-        val resp = api.getBarcodeList(StoreInventoryRequestDto(cutOffDate, storeId))
+        val request = BarcodeListRequestDto(storeId = storeId, cutOffDate = cutOffDate)
+        val resp = api.getBarcodeList(request)
         if (resp.isSuccessful) {
             val entities = resp.body()?.map {
                 BarcodeEntity(0, it.cutOffDate, it.storeId, it.brandId, it.rack, it.type, it.text, it.locationId, it.createBy, it.createDate)
             } ?: emptyList()
             db.barcodeDao().deleteByStoreCutOff(storeId, cutOffDate)
             db.barcodeDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventory/barcodelist",
+            "storeId=$storeId, cutOffDate=$cutOffDate"
+        )
     }
 
     suspend fun fetchAndCacheInventoryList(storeId: Int, cutOffDate: String): Result<Unit> = runCatching {
@@ -43,16 +52,21 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
             } ?: emptyList()
             db.storeInventoryDao().deleteByStoreCutOff(storeId, cutOffDate)
             db.storeInventoryDao().insertAll(entities)
-        } else throw Exception("API error: ${resp.code()}")
+        } else throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventory/invlist",
+            "storeId=$storeId, cutOffDate=$cutOffDate"
+        )
     }
 
     suspend fun saveBarcodeScan(
-        barcode: String, storeId: Int, brandId: Int, cutOffDate: String,
+        barcode: String, type: String, storeId: Int, brandId: Int, cutOffDate: String,
         locationId: Int, rack: Int, qty: Int, encoder: String, deviceId: String
     ) {
         val now = dateFormat.format(Date())
         repeat(qty) {
-            db.barcodeDao().insert(BarcodeEntity(0, cutOffDate, storeId, brandId, rack, "EAN_13", barcode, locationId, encoder, now))
+            db.barcodeDao().insert(BarcodeEntity(0, cutOffDate, storeId, brandId, rack, type, barcode, locationId, encoder, now))
             db.storeInventoryDao().insert(StoreInventoryEntity(0, now, cutOffDate, storeId, barcode, locationId, rack, deviceId, brandId, 1, encoder, now))
         }
         db.storeInventoryNAVDao().incrementActualQty(barcode, storeId, qty)
@@ -67,7 +81,12 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
             StoreInventoryDto(it.inventoryDate, it.cutOffDate, it.storeId, it.barcode, it.locationId, it.rack, it.deviceId, it.brandId, it.qty, it.createBy, it.createDate)
         }
         val resp = api.saveInventory(dtos)
-        if (!resp.isSuccessful) throw Exception("API error: ${resp.code()}")
+        if (!resp.isSuccessful) throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventory/save/inventory",
+            "storeId=$storeId, cutOffDate=$cutOffDate, records=${dtos.size}"
+        )
     }
 
     suspend fun exportBarcodes(storeId: Int, cutOffDate: String): Result<Unit> = runCatching {
@@ -76,7 +95,12 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
             BarcodeDto(it.id, it.cutOffDate, it.storeId, it.brandId, it.rack, it.type, it.text, it.locationId, it.createBy, it.createDate)
         }
         val resp = api.saveBarcodes(dtos)
-        if (!resp.isSuccessful) throw Exception("API error: ${resp.code()}")
+        if (!resp.isSuccessful) throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventory/save/barcode",
+            "storeId=$storeId, cutOffDate=$cutOffDate, records=${dtos.size}"
+        )
     }
 
     suspend fun exportPersonnel(storeId: Int, cutOffDate: String): Result<Unit> = runCatching {
@@ -86,7 +110,12 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
             StoreInventoryPersonnelDto(it.inventoryDate, it.cutOffDate, it.storeId, it.storePersonnel, sigBase64, it.createBy, it.createDate)
         }
         val resp = api.savePersonnel(dtos)
-        if (!resp.isSuccessful) throw Exception("API error: ${resp.code()}")
+        if (!resp.isSuccessful) throw ApiException(
+            "API error: ${resp.code()}", resp.code(),
+            resp.errorBody()?.string() ?: "",
+            "POST api/storeinventory/save/personnel",
+            "storeId=$storeId, cutOffDate=$cutOffDate, records=${dtos.size}"
+        )
     }
 
     suspend fun getPersonnelByStoreCutOff(storeId: Int, cutOffDate: String) = db.storeInventoryPersonnelDao().getPersonnelByStoreCutOff(storeId, cutOffDate)

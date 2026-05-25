@@ -24,6 +24,7 @@
 - [API Reference](#api-reference)
 - [Database Schema](#database-schema)
 - [Building the APK](#building-the-apk)
+- [Building a Release APK](#building-a-release-apk)
 - [Installation](#installation)
 
 ---
@@ -451,6 +452,98 @@ Output: `app/build/outputs/apk/debug/app-debug.apk`
 $gradle = "$env:USERPROFILE\.gradle\wrapper\dists\gradle-8.14-bin\<hash>\gradle-8.14\bin\gradle.bat"
 & $gradle assembleDebug --no-daemon
 ```
+
+---
+
+## Building a Release APK
+
+A release APK is signed and installable on any device without USB debugging. Follow these steps once to set up signing, then run a single Gradle command for every future build.
+
+### Requirements
+
+- JDK 17+ (keytool must be available — ships with the JDK)
+- Android SDK with build-tools 35.0.0 and platform android-35
+- The `rgmc_release.jks` keystore file at the project root (generated in Step 1 below)
+
+---
+
+### Step 1 — Generate the signing keystore (one-time only)
+
+Run this once. The keystore file (`rgmc_release.jks`) is placed at the project root and must be kept safe — every future update to the app **must be signed with the same keystore** or Android will refuse to install over the old version.
+
+```powershell
+& "C:\Program Files\Java\jdk-23\bin\keytool.exe" `
+  -genkeypair -v `
+  -keystore "C:\RGMC\Source\git\RGMCInventory-v2\rgmc_release.jks" `
+  -alias rgmc_key `
+  -keyalg RSA -keysize 2048 -validity 10000 `
+  -storepass "RGMCInv2024!" -keypass "RGMCInv2024!" `
+  -dname "CN=RGMC Inventory, OU=IT, O=RGMC, L=Unknown, ST=Unknown, C=PH"
+```
+
+> **Do not lose this file.** Without it you cannot publish updates that install over existing installations.
+
+---
+
+### Step 2 — Configure signing in `app/build.gradle.kts`
+
+The `signingConfigs` block and `signingConfig` reference are already added to the project. For reference, the relevant section looks like this:
+
+```kotlin
+signingConfigs {
+    create("release") {
+        storeFile = file("../rgmc_release.jks")
+        storePassword = "RGMCInv2024!"
+        keyAlias = "rgmc_key"
+        keyPassword = "RGMCInv2024!"
+    }
+}
+
+buildTypes {
+    release {
+        isMinifyEnabled = false
+        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        signingConfig = signingConfigs.getByName("release")
+    }
+}
+```
+
+No changes needed here — this is already in place. If you ever need to regenerate the keystore with different credentials, update the passwords and alias above to match.
+
+---
+
+### Step 3 — Build the release APK
+
+```powershell
+cd C:\RGMC\Source\git\RGMCInventory-v2
+.\gradlew.bat assembleRelease
+```
+
+Output:
+```
+app\build\outputs\apk\release\app-release.apk
+```
+
+The APK is signed, aligned, and ready to install — no further steps required.
+
+---
+
+### Installing the release APK
+
+**Via ADB:**
+```powershell
+adb install app\build\outputs\apk\release\app-release.apk
+```
+
+**Manually:**
+1. Copy `app-release.apk` to the device (USB, email, cloud storage)
+2. On the device: **Settings → Install unknown apps** → allow your file manager
+3. Open the APK and tap **Install**
+
+| Build type | Signed | Installable without ADB | For distribution |
+|---|---|---|---|
+| `assembleDebug` | Debug key (auto) | Requires USB debugging | Development only |
+| `assembleRelease` | Release keystore | Yes | Yes |
 
 ---
 
