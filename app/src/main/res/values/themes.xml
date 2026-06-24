@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.RGMCInventory" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorSurface</item>
-        <item name="colorPrimaryDark">@color/colorBackground</item>
-        <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:statusBarColor">@color/colorBackground</item>
-        <item name="android:navigationBarColor">@color/colorSurface</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="colorSurface">@color/colorSurface</item>
-        <item name="colorOnSurface">@color/colorTextPrimary</item>
-        <item name="colorOnBackground">@color/colorTextPrimary</item>
+    <!-- ====================================================
+         MINIMALIST THEME (B&W) — DEFAULT
+         ==================================================== -->
+    <style name="Theme.RGMCInventory" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Material standard -->
+        <item name="colorPrimary">@color/min_primary</item>
+        <item name="colorPrimaryDark">@color/min_primaryDark</item>
+        <item name="colorAccent">@color/min_accent</item>
+        <item name="colorSurface">@color/min_surface</item>
+        <item name="colorBackground">@color/min_background</item>
+        <item name="colorOnSurface">@color/min_textPrimary</item>
+        <item name="colorOnBackground">@color/min_textPrimary</item>
         <item name="colorOnPrimary">@color/white</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/min_background</item>
+        <item name="android:statusBarColor">@color/min_background</item>
+        <item name="android:navigationBarColor">@color/min_surface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Custom RGMC attrs -->
+        <item name="colorBorder">@color/min_border</item>
+        <item name="colorDivider">@color/min_divider</item>
+        <item name="colorSurfaceVariant">@color/min_surfaceVariant</item>
+        <item name="colorTextPrimary">@color/min_textPrimary</item>
+        <item name="colorTextSecondary">@color/min_textSecondary</item>
+        <item name="colorTextMuted">@color/min_textMuted</item>
+        <item name="colorPrimaryLight">@color/min_primaryLight</item>
+        <item name="colorAccentLight">@color/min_accentLight</item>
+        <item name="colorPositive">@color/min_positive</item>
+        <item name="colorNegative">@color/min_negative</item>
+        <item name="colorWarning">@color/min_warning</item>
+        <item name="colorNeutral">@color/min_neutral</item>
+        <item name="colorModuleScanner">@color/min_moduleScanner</item>
+        <item name="colorModuleSessions">@color/min_moduleSessions</item>
+        <item name="colorModuleProducts">@color/min_moduleProducts</item>
+        <item name="colorModuleNotes">@color/min_moduleNotes</item>
+        <item name="colorModuleSigning">@color/min_moduleSigning</item>
+        <item name="colorModuleExport">@color/min_moduleExport</item>
+        <item name="colorModuleUpdate">@color/min_moduleUpdate</item>
+        <item name="colorModuleCutoffs">@color/min_moduleCutoffs</item>
+        <item name="colorVariancePositive">@color/min_variancePositive</item>
+        <item name="colorVarianceNegative">@color/min_varianceNegative</item>
+        <item name="colorVarianceZero">@color/min_varianceZero</item>
+        <!-- Styles -->
         <item name="actionBarStyle">@style/Widget.RGMC.ActionBar</item>
         <item name="actionBarTheme">@style/ThemeOverlay.RGMC.ActionBar</item>
         <item name="materialCardViewStyle">@style/Widget.RGMC.CardView</item>
@@ -20,49 +51,189 @@
         <item name="android:dropDownSpinnerStyle">@style/Widget.RGMC.Spinner</item>
     </style>
 
-    <style name="Theme.RGMCInventory.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@color/colorBackground</item>
-        <item name="android:statusBarColor">@color/colorBackground</item>
-        <item name="android:navigationBarColor">@color/colorBackground</item>
-        <item name="android:windowLightStatusBar">false</item>
+    <!-- ====================================================
+         LIGHT THEME
+         ==================================================== -->
+    <style name="Theme.RGMCInventory.Light" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Material standard -->
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorPrimaryDark">@color/light_primaryDark</item>
+        <item name="colorAccent">@color/light_accent</item>
+        <item name="colorSurface">@color/light_surface</item>
+        <item name="colorBackground">@color/light_background</item>
+        <item name="colorOnSurface">@color/light_textPrimary</item>
+        <item name="colorOnBackground">@color/light_textPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/light_background</item>
+        <item name="android:statusBarColor">@color/light_background</item>
+        <item name="android:navigationBarColor">@color/light_surface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <!-- Custom RGMC attrs -->
+        <item name="colorBorder">@color/light_border</item>
+        <item name="colorDivider">@color/light_divider</item>
+        <item name="colorSurfaceVariant">@color/light_surfaceVariant</item>
+        <item name="colorTextPrimary">@color/light_textPrimary</item>
+        <item name="colorTextSecondary">@color/light_textSecondary</item>
+        <item name="colorTextMuted">@color/light_textMuted</item>
+        <item name="colorPrimaryLight">@color/light_primaryLight</item>
+        <item name="colorAccentLight">@color/light_accentLight</item>
+        <item name="colorPositive">@color/light_positive</item>
+        <item name="colorNegative">@color/light_negative</item>
+        <item name="colorWarning">@color/light_warning</item>
+        <item name="colorNeutral">@color/light_neutral</item>
+        <item name="colorModuleScanner">@color/light_moduleScanner</item>
+        <item name="colorModuleSessions">@color/light_moduleSessions</item>
+        <item name="colorModuleProducts">@color/light_moduleProducts</item>
+        <item name="colorModuleNotes">@color/light_moduleNotes</item>
+        <item name="colorModuleSigning">@color/light_moduleSigning</item>
+        <item name="colorModuleExport">@color/light_moduleExport</item>
+        <item name="colorModuleUpdate">@color/light_moduleUpdate</item>
+        <item name="colorModuleCutoffs">@color/light_moduleCutoffs</item>
+        <item name="colorVariancePositive">@color/light_variancePositive</item>
+        <item name="colorVarianceNegative">@color/light_varianceNegative</item>
+        <item name="colorVarianceZero">@color/light_varianceZero</item>
+        <!-- Styles -->
+        <item name="actionBarStyle">@style/Widget.RGMC.ActionBar</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.RGMC.ActionBar</item>
+        <item name="materialCardViewStyle">@style/Widget.RGMC.CardView</item>
+        <item name="android:spinnerStyle">@style/Widget.RGMC.Spinner</item>
+        <item name="android:dropDownSpinnerStyle">@style/Widget.RGMC.Spinner</item>
     </style>
 
-    <!-- ActionBar -->
+    <!-- ====================================================
+         DARK THEME
+         ==================================================== -->
+    <style name="Theme.RGMCInventory.Dark" parent="Theme.MaterialComponents">
+        <!-- Material standard -->
+        <item name="colorPrimary">@color/dark_surface</item>
+        <item name="colorPrimaryDark">@color/dark_background</item>
+        <item name="colorAccent">@color/dark_primary</item>
+        <item name="colorSurface">@color/dark_surface</item>
+        <item name="colorBackground">@color/dark_background</item>
+        <item name="colorOnSurface">@color/dark_textPrimary</item>
+        <item name="colorOnBackground">@color/dark_textPrimary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Window -->
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:navigationBarColor">@color/dark_surface</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Custom RGMC attrs -->
+        <item name="colorBorder">@color/dark_border</item>
+        <item name="colorDivider">@color/dark_divider</item>
+        <item name="colorSurfaceVariant">@color/dark_surfaceVariant</item>
+        <item name="colorTextPrimary">@color/dark_textPrimary</item>
+        <item name="colorTextSecondary">@color/dark_textSecondary</item>
+        <item name="colorTextMuted">@color/dark_textMuted</item>
+        <item name="colorPrimaryLight">@color/dark_primaryLight</item>
+        <item name="colorAccentLight">@color/dark_accentLight</item>
+        <item name="colorPositive">@color/dark_positive</item>
+        <item name="colorNegative">@color/dark_negative</item>
+        <item name="colorWarning">@color/dark_warning</item>
+        <item name="colorNeutral">@color/dark_neutral</item>
+        <item name="colorModuleScanner">@color/dark_moduleScanner</item>
+        <item name="colorModuleSessions">@color/dark_moduleSessions</item>
+        <item name="colorModuleProducts">@color/dark_moduleProducts</item>
+        <item name="colorModuleNotes">@color/dark_moduleNotes</item>
+        <item name="colorModuleSigning">@color/dark_moduleSigning</item>
+        <item name="colorModuleExport">@color/dark_moduleExport</item>
+        <item name="colorModuleUpdate">@color/dark_moduleUpdate</item>
+        <item name="colorModuleCutoffs">@color/dark_moduleCutoffs</item>
+        <item name="colorVariancePositive">@color/dark_variancePositive</item>
+        <item name="colorVarianceNegative">@color/dark_varianceNegative</item>
+        <item name="colorVarianceZero">@color/dark_varianceZero</item>
+        <!-- Styles -->
+        <item name="actionBarStyle">@style/Widget.RGMC.ActionBar</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.RGMC.ActionBar.Dark</item>
+        <item name="materialCardViewStyle">@style/Widget.RGMC.CardView</item>
+        <item name="android:spinnerStyle">@style/Widget.RGMC.Spinner</item>
+        <item name="android:dropDownSpinnerStyle">@style/Widget.RGMC.Spinner</item>
+    </style>
+
+    <!-- ====================================================
+         SPLASH THEMES
+         ==================================================== -->
+    <style name="Theme.RGMCInventory.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/min_background</item>
+        <item name="android:statusBarColor">@color/min_background</item>
+        <item name="android:navigationBarColor">@color/min_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorTextPrimary">@color/min_textPrimary</item>
+        <item name="colorTextSecondary">@color/min_textSecondary</item>
+        <item name="colorTextMuted">@color/min_textMuted</item>
+        <item name="colorBorder">@color/min_border</item>
+        <item name="colorDivider">@color/min_divider</item>
+        <item name="colorPrimaryLight">@color/min_primaryLight</item>
+    </style>
+
+    <style name="Theme.RGMCInventory.Splash.Light" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@color/light_background</item>
+        <item name="android:statusBarColor">@color/light_background</item>
+        <item name="android:navigationBarColor">@color/light_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorTextPrimary">@color/light_textPrimary</item>
+        <item name="colorTextSecondary">@color/light_textSecondary</item>
+        <item name="colorTextMuted">@color/light_textMuted</item>
+        <item name="colorBorder">@color/light_border</item>
+        <item name="colorDivider">@color/light_divider</item>
+        <item name="colorPrimaryLight">@color/light_primaryLight</item>
+    </style>
+
+    <style name="Theme.RGMCInventory.Splash.Dark" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:navigationBarColor">@color/dark_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorTextPrimary">@color/dark_textPrimary</item>
+        <item name="colorTextSecondary">@color/dark_textSecondary</item>
+        <item name="colorTextMuted">@color/dark_textMuted</item>
+        <item name="colorBorder">@color/dark_border</item>
+        <item name="colorDivider">@color/dark_divider</item>
+        <item name="colorPrimaryLight">@color/dark_primaryLight</item>
+    </style>
+
+    <!-- ====================================================
+         SHARED COMPONENT STYLES
+         ==================================================== -->
+
     <style name="Widget.RGMC.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
-        <item name="background">@color/colorSurface</item>
+        <item name="background">?attr/colorSurface</item>
         <item name="elevation">0dp</item>
         <item name="titleTextStyle">@style/TextAppearance.RGMC.ActionBarTitle</item>
     </style>
 
-    <style name="ThemeOverlay.RGMC.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
-        <item name="colorControlNormal">@color/colorTextSecondary</item>
+    <style name="ThemeOverlay.RGMC.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">?attr/colorTextPrimary</item>
+        <item name="colorControlNormal">?attr/colorTextSecondary</item>
+    </style>
+
+    <style name="ThemeOverlay.RGMC.ActionBar.Dark" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">?attr/colorTextPrimary</item>
+        <item name="colorControlNormal">?attr/colorTextSecondary</item>
     </style>
 
     <style name="TextAppearance.RGMC.ActionBarTitle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textSize">16sp</item>
         <item name="android:letterSpacing">0.03</item>
     </style>
 
-    <!-- Card -->
     <style name="Widget.RGMC.CardView" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">@color/colorSurface</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/colorBorder</item>
+        <item name="strokeColor">?attr/colorBorder</item>
         <item name="strokeWidth">1dp</item>
     </style>
 
-    <!-- Spinner -->
     <style name="Widget.RGMC.Spinner" parent="Widget.AppCompat.Spinner">
         <item name="android:background">@null</item>
-        <item name="android:popupBackground">@color/colorSurfaceVariant</item>
+        <item name="android:popupBackground">?attr/colorSurfaceVariant</item>
     </style>
 
-    <!-- Buttons -->
     <style name="Widget.RGMC.Button.Primary" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/colorPrimary</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="cornerRadius">10dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
@@ -73,16 +244,16 @@
     </style>
 
     <style name="Widget.RGMC.Button.Secondary" parent="Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="strokeColor">@color/colorBorder</item>
+        <item name="strokeColor">?attr/colorBorder</item>
         <item name="cornerRadius">10dp</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
         <item name="android:textSize">14sp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingBottom">16dp</item>
     </style>
 
     <style name="Widget.RGMC.Button.Danger" parent="Widget.MaterialComponents.Button">
-        <item name="backgroundTint">@color/colorNegative</item>
+        <item name="backgroundTint">?attr/colorNegative</item>
         <item name="cornerRadius">10dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
@@ -90,10 +261,9 @@
         <item name="android:paddingBottom">16dp</item>
     </style>
 
-    <!-- Text appearances (explicit parents to avoid implicit AAPT resolution) -->
     <style name="TextAppearance.RGMC.ScreenLabel" parent="TextAppearance.AppCompat">
         <item name="android:textSize">11sp</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
         <item name="android:letterSpacing">0.12</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
@@ -101,13 +271,13 @@
 
     <style name="TextAppearance.RGMC.StatValue" parent="TextAppearance.AppCompat">
         <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColor">?attr/colorTextPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.RGMC.StatLabel" parent="TextAppearance.AppCompat">
         <item name="android:textSize">10sp</item>
-        <item name="android:textColor">@color/colorTextSecondary</item>
+        <item name="android:textColor">?attr/colorTextSecondary</item>
         <item name="android:letterSpacing">0.08</item>
         <item name="android:textAllCaps">true</item>
     </style>

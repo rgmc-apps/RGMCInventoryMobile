@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground"
+    android:background="?attr/colorBackground"
     android:padding="20dp">
 
     <ProgressBar
@@ -13,7 +13,7 @@
         android:layout_height="3dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimaryLight"
+        android:indeterminateTint="?attr/colorPrimaryLight"
         android:visibility="gone"
         android:layout_marginBottom="16dp"/>
 
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EXPORT SETTINGS"
-        android:textColor="@color/colorTextSecondary"
+        android:textColor="?attr/colorTextSecondary"
         android:textSize="11sp"
         android:letterSpacing="0.12"
         android:textStyle="bold"
@@ -31,10 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        app:cardBackgroundColor="@color/colorSurface"
+        app:cardBackgroundColor="?attr/colorSurface"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
-        app:strokeColor="@color/colorBorder"
+        app:strokeColor="?attr/colorBorder"
         app:strokeWidth="1dp">
 
         <LinearLayout
@@ -43,7 +43,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUT-OFF DATE" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUT-OFF DATE" android:textColor="?attr/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
             <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp">
                 <Spinner android:id="@+id/spinnerCutOff" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
             </FrameLayout>

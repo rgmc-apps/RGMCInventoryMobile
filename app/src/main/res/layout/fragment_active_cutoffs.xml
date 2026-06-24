@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorBackground">
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stores with an active inventory cut-off"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tvCutoffCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="?attr/colorModuleCutoffs"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="active"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="11sp"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCutoffs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="12dp"
+                android:clipToPadding="false"/>
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No active cut-offs found.\nPull down to refresh."
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="14sp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:padding="48dp"
+                android:visibility="gone"/>
+        </FrameLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>

@@ -7,6 +7,7 @@ import com.rgmc.inventory.data.local.entity.*
 import com.rgmc.inventory.data.remote.ApiException
 import com.rgmc.inventory.util.ErrorReport
 import com.rgmc.inventory.util.ErrorReporter
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -29,7 +30,18 @@ data class ScannerSetupState(
     val encoder: String = "",
     val isLoading: Boolean = false,
     val isCutOffLoading: Boolean = false,
+    val filterActiveCutoffOnly: Boolean = false,
     val error: String? = null
+)
+
+data class ActiveCutOffItem(
+    val storeCutOff: String,
+    val storeId: Int,
+    val storeName: String,
+    val customerName: String,
+    val cutOffDate: String,
+    val createBy: String,
+    val createDate: String
 )
 
 data class ScanResultState(
@@ -63,10 +75,17 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
     private val _message = MutableSharedFlow<String>()
     val message: SharedFlow<String> = _message.asSharedFlow()
 
+    private val _activeCutOffs = MutableStateFlow<List<ActiveCutOffItem>>(emptyList())
+    val activeCutOffs: StateFlow<List<ActiveCutOffItem>> = _activeCutOffs.asStateFlow()
+
+    private val _activeCutOffsLoading = MutableStateFlow(false)
+    val activeCutOffsLoading: StateFlow<Boolean> = _activeCutOffsLoading.asStateFlow()
+
     private val _errorReport = MutableSharedFlow<ErrorReport>()
     val errorReport: SharedFlow<ErrorReport> = _errorReport.asSharedFlow()
 
     private var currentSessionId: Int = 0
+    private var navListJob: Job? = null
 
     val openSessions: StateFlow<List<ScanningSessionEntity>> =
         app.database.scanningSessionDao().getOpenSessionsFlow()
@@ -103,8 +122,50 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
     fun onCustomerSelected(customer: CustomerEntity) {
         viewModelScope.launch {
             val brand = _setupState.value.selectedBrand ?: return@launch
-            val stores = storeRepo.getStoresByBrandAndCustomer(brand.brandId, customer.customerId)
+            val allStores = storeRepo.getStoresByBrandAndCustomer(brand.brandId, customer.customerId)
+            val stores = if (_setupState.value.filterActiveCutoffOnly) {
+                val activeIds = storeRepo.getStoreIdsWithActiveCutoffs().toSet()
+                allStores.filter { it.storeId in activeIds }
+            } else allStores
             _setupState.update { it.copy(selectedCustomer = customer, stores = stores, selectedStore = null) }
+        }
+    }
+
+    fun onFilterActiveCutoffOnlyChanged(enabled: Boolean) {
+        viewModelScope.launch {
+            _setupState.update { it.copy(filterActiveCutoffOnly = enabled) }
+            val state = _setupState.value
+            val customer = state.selectedCustomer ?: return@launch
+            val brand = state.selectedBrand ?: return@launch
+            val allStores = storeRepo.getStoresByBrandAndCustomer(brand.brandId, customer.customerId)
+            val stores = if (enabled) {
+                val activeIds = storeRepo.getStoreIdsWithActiveCutoffs().toSet()
+                allStores.filter { it.storeId in activeIds }
+            } else allStores
+            _setupState.update { it.copy(stores = stores, selectedStore = null) }
+        }
+    }
+
+    fun loadActiveCutOffs() {
+        viewModelScope.launch {
+            _activeCutOffsLoading.value = true
+            storeRepo.fetchAndCacheCutOffs().emitErrorReport("Refresh cut-offs")
+            storeRepo.fetchAndCacheStores().emitErrorReport("Refresh stores for cut-offs")
+            val cutOffs = storeRepo.getActiveCutOffs()
+            val storeMap = storeRepo.getAllStores().associateBy { it.storeId }
+            _activeCutOffs.value = cutOffs.map { c ->
+                val store = storeMap[c.storeId]
+                ActiveCutOffItem(
+                    storeCutOff = c.storeCutOff,
+                    storeId = c.storeId,
+                    storeName = store?.name ?: "Store #${c.storeId}",
+                    customerName = store?.customerName ?: "",
+                    cutOffDate = c.cutOffDate,
+                    createBy = c.createBy,
+                    createDate = c.createDate
+                )
+            }
+            _activeCutOffsLoading.value = false
         }
     }
 
@@ -122,11 +183,34 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
     fun onRackChanged(rack: Int) { _setupState.update { it.copy(rack = rack) } }
     fun onEncoderChanged(encoder: String) { _setupState.update { it.copy(encoder = encoder) } }
 
+    private fun subscribeNavList(storeId: Int) {
+        navListJob?.cancel()
+        navListJob = viewModelScope.launch {
+            invRepo.getNavListFlow(storeId).collect { list -> _navList.value = list }
+        }
+    }
+
     fun loadNavList(storeId: Int) {
         viewModelScope.launch {
             _setupState.update { it.copy(isLoading = true) }
             invRepo.fetchAndCacheNavList(storeId).emitErrorReport("Load NAV list for store $storeId")
-            invRepo.getNavListFlow(storeId).collect { list -> _navList.value = list }
+            _setupState.update { it.copy(isLoading = false) }
+        }
+        subscribeNavList(storeId)
+    }
+
+    fun clearSearch() {
+        val storeId = _setupState.value.selectedStore?.storeId ?: return
+        subscribeNavList(storeId)
+    }
+
+    fun clearScans() {
+        viewModelScope.launch {
+            val state = _setupState.value
+            val storeId = state.selectedStore?.storeId ?: return@launch
+            val cutOff = state.selectedCutOff?.cutOffDate ?: return@launch
+            invRepo.clearScans(storeId, cutOff)
+            _message.emit("All scans cleared")
         }
     }
 
@@ -259,7 +343,7 @@ class ScannerViewModel(application: Application) : AndroidViewModel(application)
                 encoder = session.encoder
             )
         }
-        loadNavList(session.storeId)
+        subscribeNavList(session.storeId)
     }
 
     fun deleteSession(session: ScanningSessionEntity) {

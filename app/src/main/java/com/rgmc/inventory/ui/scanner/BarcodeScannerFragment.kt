@@ -1,12 +1,15 @@
 package com.rgmc.inventory.ui.scanner
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.*
+import android.view.animation.LinearInterpolator
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
@@ -15,14 +18,22 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import com.rgmc.inventory.R
 import com.rgmc.inventory.databinding.FragmentBarcodeScannerBinding
+import com.rgmc.inventory.ui.adapter.ScanHistoryAdapter
+import com.rgmc.inventory.ui.adapter.ScanHistoryItem
+import com.rgmc.inventory.ui.adapter.ScanStatus
 import com.rgmc.inventory.ui.viewmodel.ScannerViewModel
+import com.rgmc.inventory.util.resolveAttrColor
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -35,9 +46,14 @@ class BarcodeScannerFragment : Fragment() {
     private lateinit var cameraExecutor: ExecutorService
     private var camera: Camera? = null
     private val isProcessing = AtomicBoolean(false)
+    private var cooldownAnimator: ObjectAnimator? = null
+    private var cooldownJob: Job? = null
     private var mediaPlayer: MediaPlayer? = null
     private val scanner = BarcodeScanning.getClient()
     private var isTorchOn = false
+
+    private val scanHistory = mutableListOf<ScanHistoryItem>()
+    private lateinit var historyAdapter: ScanHistoryAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentBarcodeScannerBinding.inflate(inflater, container, false)
@@ -49,14 +65,48 @@ class BarcodeScannerFragment : Fragment() {
         cameraExecutor = Executors.newSingleThreadExecutor()
         startCamera()
 
+        // Scan history RecyclerView
+        historyAdapter = ScanHistoryAdapter()
+        binding.rvScanHistory.adapter = historyAdapter
+        binding.rvScanHistory.layoutManager = LinearLayoutManager(requireContext())
+
+        // Toggle history panel via badge and close button
+        binding.btnToggleHistory.setOnClickListener { toggleHistoryPanel() }
+        binding.btnCloseHistory.setOnClickListener { toggleHistoryPanel() }
+
+        // RESCAN: cancel the running cooldown and immediately allow a new scan
+        binding.btnRescan.setOnClickListener {
+            cooldownJob?.cancel()
+            cooldownJob = null
+            cooldownAnimator?.cancel()
+            binding.scanResultCard.isVisible = false
+            binding.scanCooldownProgress.isVisible = false
+            isProcessing.set(false)
+        }
+
+        // Observe scan results — use collect (not collectLatest) so every scan is recorded
         viewLifecycleOwner.lifecycleScope.launch {
-            vm.lastScan.collectLatest { result ->
-                result ?: return@collectLatest
-                binding.tvBarcode.text = result.barcode
-                binding.tvFormat.text = result.format
+            vm.lastScan.collect { result ->
+                result ?: return@collect
+
+                // Prepend to history and update adapter
+                val status = when {
+                    !result.isAccepted -> ScanStatus.REJECTED
+                    !result.inNavList -> ScanStatus.NOT_IN_NAV
+                    else -> ScanStatus.ACCEPTED
+                }
+                scanHistory.add(0, ScanHistoryItem(barcode = result.barcode, format = result.format, status = status))
+                if (scanHistory.size > 50) scanHistory.removeAt(scanHistory.size - 1)
+                historyAdapter.submitList(scanHistory.toList())
+                binding.tvScanCount.text = scanHistory.size.toString()
+
+                // Result card
+                val ctx = requireContext()
+                val statusColor: Int
                 when {
                     !result.isAccepted -> {
-                        binding.statusHeader.setBackgroundColor(Color.parseColor("#EF4444"))
+                        statusColor = ctx.resolveAttrColor(R.attr.colorNegative)
+                        binding.statusHeader.setBackgroundColor(statusColor)
                         binding.tvStatus.text = "REJECTED"
                         binding.tvRejectionReason.text = result.rejectionReason
                         binding.tvRejectionReason.isVisible = true
@@ -65,7 +115,8 @@ class BarcodeScannerFragment : Fragment() {
                         binding.statsRow.isVisible = false
                     }
                     !result.inNavList -> {
-                        binding.statusHeader.setBackgroundColor(Color.parseColor("#F59E0B"))
+                        statusColor = ctx.resolveAttrColor(R.attr.colorWarning)
+                        binding.statusHeader.setBackgroundColor(statusColor)
                         binding.tvStatus.text = "NOT IN NAV LIST"
                         binding.tvRejectionReason.isVisible = false
                         binding.tvDescription.isVisible = false
@@ -73,7 +124,8 @@ class BarcodeScannerFragment : Fragment() {
                         binding.statsRow.isVisible = false
                     }
                     else -> {
-                        binding.statusHeader.setBackgroundColor(Color.parseColor("#22C55E"))
+                        statusColor = ctx.resolveAttrColor(R.attr.colorPositive)
+                        binding.statusHeader.setBackgroundColor(statusColor)
                         binding.tvStatus.text = "ACCEPTED"
                         binding.tvRejectionReason.isVisible = false
                         binding.tvDescription.text = result.description
@@ -86,8 +138,15 @@ class BarcodeScannerFragment : Fragment() {
                         binding.statsRow.isVisible = true
                     }
                 }
+                binding.tvBarcode.text = result.barcode
+                binding.tvFormat.text = result.format
                 binding.scanResultCard.isVisible = true
+                startCooldownAnimation(statusColor)
             }
+        }
+
+        binding.btnOk.setOnClickListener {
+            binding.scanResultCard.isVisible = false
         }
 
         binding.btnTorch.setOnClickListener {
@@ -102,6 +161,13 @@ class BarcodeScannerFragment : Fragment() {
             val afd = requireContext().assets.openFd("beep.mp3")
             MediaPlayer().apply { setDataSource(afd.fileDescriptor, afd.startOffset, afd.length); prepare() }
         } catch (e: Exception) { null }
+    }
+
+    private fun toggleHistoryPanel() {
+        val nowVisible = !binding.scanHistoryPanel.isVisible
+        binding.scanHistoryPanel.isVisible = nowVisible
+        // Scroll to top when opening
+        if (nowVisible && scanHistory.isNotEmpty()) binding.rvScanHistory.scrollToPosition(0)
     }
 
     @SuppressLint("UnsafeOptInUsageError")
@@ -132,18 +198,45 @@ class BarcodeScannerFragment : Fragment() {
         val image = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
         scanner.process(image)
             .addOnSuccessListener { barcodes ->
-                val barcode = barcodes.firstOrNull { it.rawValue != null } ?: return@addOnSuccessListener
-                val raw = barcode.rawValue ?: return@addOnSuccessListener
+                val valid = barcodes.filter { it.rawValue != null }
+                if (valid.isEmpty()) return@addOnSuccessListener
                 if (!isProcessing.compareAndSet(false, true)) return@addOnSuccessListener
-                val fmt = barcode.format
-                val fmtName = formatName(fmt)
-                if (fmt == Barcode.FORMAT_EAN_13 || fmt == Barcode.FORMAT_CODE_128) {
-                    onBarcodeAccepted(raw, fmtName)
-                } else {
-                    onBarcodeRejected(raw, fmtName)
+
+                when {
+                    valid.size > 1 -> showBarcodeSelectionDialog(valid)
+                    else -> dispatchBarcode(valid[0])
                 }
             }
             .addOnCompleteListener { imageProxy.close() }
+    }
+
+    // Called from ML Kit success listener (main thread)
+    private fun showBarcodeSelectionDialog(barcodes: List<Barcode>) {
+        if (!isAdded) { isProcessing.set(false); return }
+        val items = barcodes.map { b ->
+            val fmt = formatName(b.format)
+            val accepted = b.format == Barcode.FORMAT_EAN_13 || b.format == Barcode.FORMAT_CODE_128
+            "${b.rawValue}  ($fmt)${if (!accepted) "  ✗" else ""}"
+        }.toTypedArray()
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("${barcodes.size} barcodes detected — pick one")
+            .setItems(items) { _, which ->
+                dispatchBarcode(barcodes[which])
+            }
+            .setNegativeButton("Cancel") { _, _ -> isProcessing.set(false) }
+            .setOnCancelListener { isProcessing.set(false) }
+            .show()
+    }
+
+    private fun dispatchBarcode(barcode: Barcode) {
+        val raw = barcode.rawValue ?: run { isProcessing.set(false); return }
+        val fmt = formatName(barcode.format)
+        if (barcode.format == Barcode.FORMAT_EAN_13 || barcode.format == Barcode.FORMAT_CODE_128) {
+            onBarcodeAccepted(raw, fmt)
+        } else {
+            onBarcodeRejected(raw, fmt)
+        }
     }
 
     private fun formatName(format: Int): String = when (format) {
@@ -163,26 +256,43 @@ class BarcodeScannerFragment : Fragment() {
         else -> "Unknown"
     }
 
+    private fun startCooldownAnimation(color: Int) {
+        cooldownAnimator?.cancel()
+        binding.scanCooldownProgress.progressTintList = ColorStateList.valueOf(color)
+        binding.scanCooldownProgress.progress = 0
+        binding.scanCooldownProgress.isVisible = true
+        cooldownAnimator = ObjectAnimator.ofInt(binding.scanCooldownProgress, "progress", 0, 100).apply {
+            duration = 2000
+            interpolator = LinearInterpolator()
+            start()
+        }
+    }
+
     private fun onBarcodeAccepted(barcode: String, format: String) {
         mediaPlayer?.start()
         val deviceId = Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
         val qty = binding.etQty.text.toString().toIntOrNull() ?: 1
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+        cooldownJob = viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             vm.processBarcodeScan(barcode, format, qty, deviceId)
+            delay(2000)
+            binding.scanCooldownProgress.isVisible = false
             isProcessing.set(false)
         }
     }
 
     private fun onBarcodeRejected(barcode: String, format: String) {
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+        cooldownJob = viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
             vm.reportScanRejected(barcode, format, "Only EAN-13 and Code 128 are accepted")
-            delay(1500)
+            delay(2000)
+            binding.scanCooldownProgress.isVisible = false
             isProcessing.set(false)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        cooldownJob?.cancel()
+        cooldownAnimator?.cancel()
         cameraExecutor.shutdown()
         mediaPlayer?.release()
         scanner.close()

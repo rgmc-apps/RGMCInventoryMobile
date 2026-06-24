@@ -16,8 +16,15 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
     suspend fun fetchAndCacheNavList(storeId: Int): Result<Unit> = runCatching {
         val resp = api.getNavList(storeId)
         if (resp.isSuccessful) {
+            // Preserve any locally scanned quantities so re-fetching doesn't wipe scans
+            val localQty = db.storeInventoryNAVDao().getNavByStoreList(storeId)
+                .associate { it.barcode to it.actualQty }
             val entities = resp.body()?.map {
-                StoreInventoryNAVEntity(0, it.barcode, it.storeId, it.brandId, it.description, it.price, it.qty, it.actualQty, it.totalQty, it.createBy, it.createDate)
+                StoreInventoryNAVEntity(
+                    0, it.barcode, it.storeId, it.brandId, it.description, it.price, it.qty,
+                    localQty[it.barcode] ?: it.actualQty,
+                    it.totalQty, it.createBy, it.createDate
+                )
             } ?: emptyList()
             db.storeInventoryNAVDao().deleteByStore(storeId)
             db.storeInventoryNAVDao().insertAll(entities)
@@ -25,6 +32,12 @@ class StoreInventoryRepository(private val db: AppDatabase, private val api: Api
             "API error: ${resp.code()}", resp.code(),
             resp.errorBody()?.string() ?: "", "GET api/storeinventory/navlist/$storeId"
         )
+    }
+
+    suspend fun clearScans(storeId: Int, cutOffDate: String) {
+        db.barcodeDao().deleteByStoreCutOff(storeId, cutOffDate)
+        db.storeInventoryDao().deleteByStoreCutOff(storeId, cutOffDate)
+        db.storeInventoryNAVDao().resetActualQty(storeId)
     }
 
     suspend fun fetchAndCacheBarcodeList(storeId: Int, cutOffDate: String): Result<Unit> = runCatching {

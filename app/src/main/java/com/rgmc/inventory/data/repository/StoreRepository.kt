@@ -69,6 +69,8 @@ class StoreRepository(private val db: AppDatabase, private val api: ApiService) 
     suspend fun getAllLocations() = db.storeInventoryLocationDao().getAllLocations()
     suspend fun getAllCutOffs() = db.storeInventoryCutOffDao().getAllCutOffs()
     suspend fun getCutOffsByStore(storeId: Int) = db.storeInventoryCutOffDao().getCutOffsByStore(storeId)
+    suspend fun getActiveCutOffs() = db.storeInventoryCutOffDao().getActiveCutOffs()
+    suspend fun getStoreIdsWithActiveCutoffs() = db.storeInventoryCutOffDao().getActiveStoreIds()
     suspend fun createCutOff(storeId: Int, cutOffDate: String, createBy: String): Result<Unit> = runCatching {
         val resp = api.createCutOff(StoreInventoryCutOffRequestDto(storeId, cutOffDate, createBy))
         if (!resp.isSuccessful) throw ApiException(

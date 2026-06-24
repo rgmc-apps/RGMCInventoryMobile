@@ -24,6 +24,9 @@ interface StoreInventoryNAVDao {
     @Query("UPDATE store_inventory_nav SET actualQty = actualQty + :qty WHERE barcode = :barcode AND storeId = :storeId")
     suspend fun incrementActualQty(barcode: String, storeId: Int, qty: Int)
 
+    @Query("UPDATE store_inventory_nav SET actualQty = 0 WHERE storeId = :storeId")
+    suspend fun resetActualQty(storeId: Int)
+
     @Query("DELETE FROM store_inventory_nav WHERE storeId = :storeId")
     suspend fun deleteByStore(storeId: Int)
 

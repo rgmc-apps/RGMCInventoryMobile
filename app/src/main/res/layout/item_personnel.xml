@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardBackgroundColor="@color/colorSurface"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
-    app:strokeColor="@color/colorBorder"
+    app:strokeColor="?attr/colorBorder"
     app:strokeWidth="1dp">
 
     <LinearLayout
@@ -30,14 +30,14 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="15sp"
-                android:textColor="@color/colorTextPrimary"/>
+                android:textColor="?attr/colorTextPrimary"/>
 
             <TextView
                 android:id="@+id/tvSigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:layout_marginTop="2dp"/>
         </LinearLayout>
 
@@ -58,7 +58,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_delete"
-            app:tint="@color/colorTextMuted"
+            app:tint="?attr/colorTextMuted"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="6dp"/>
     </LinearLayout>

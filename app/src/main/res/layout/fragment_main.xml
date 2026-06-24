@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorBackground">
 
     <!-- Header -->
     <LinearLayout
@@ -16,7 +16,7 @@
         android:paddingTop="20dp"
         android:paddingBottom="16dp"
         android:gravity="center_vertical"
-        android:background="@color/colorSurface">
+        android:background="?attr/colorSurface">
 
         <ImageView
             android:layout_width="48dp"
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RGMC INVENTORY"
-                android:textColor="@color/colorTextPrimary"
+                android:textColor="?attr/colorTextPrimary"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:letterSpacing="0.06"/>
@@ -44,26 +44,76 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Warehouse Management System"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="11sp"
                 android:layout_marginTop="2dp"/>
         </LinearLayout>
 
-        <TextView
+        <!-- Theme Toggle -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="v2.0"
-            android:textColor="@color/colorTextMuted"
-            android:textSize="11sp"
-            android:background="@drawable/bg_input_field"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"/>
+            android:orientation="vertical"
+            android:gravity="end">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="v2.0"
+                android:textColor="?attr/colorTextMuted"
+                android:textSize="10sp"
+                android:layout_gravity="end"
+                android:layout_marginBottom="5dp"/>
+
+            <LinearLayout
+                android:id="@+id/themeToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_theme_toggle_track"
+                android:padding="2dp">
+
+                <TextView
+                    android:id="@+id/btnThemeMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MIN"
+                    android:textSize="9sp"
+                    android:letterSpacing="0.05"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/btnThemeLgt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LGT"
+                    android:textSize="9sp"
+                    android:letterSpacing="0.05"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
+
+                <TextView
+                    android:id="@+id/btnThemeDrk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DRK"
+                    android:textSize="9sp"
+                    android:letterSpacing="0.05"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Divider -->
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorder"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
     <!-- Module Grid -->
     <ScrollView
@@ -80,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MODULES"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.12"
                 android:textStyle="bold"
@@ -100,10 +150,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/colorSurface"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/colorBorder"
+                    app:strokeColor="?attr/colorBorder"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -114,7 +164,7 @@
                         <View
                             android:layout_width="4dp"
                             android:layout_height="match_parent"
-                            android:background="@color/colorModuleScanner"/>
+                            android:background="?attr/colorModuleScanner"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -126,14 +176,14 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:src="@drawable/ic_scanner"
-                                app:tint="@color/colorModuleScanner"
+                                app:tint="?attr/colorModuleScanner"
                                 android:layout_marginBottom="10dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Scanner"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -141,7 +191,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Barcode inventory"
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"/>
                         </LinearLayout>
@@ -155,10 +205,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/colorSurface"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/colorBorder"
+                    app:strokeColor="?attr/colorBorder"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -169,7 +219,7 @@
                         <View
                             android:layout_width="4dp"
                             android:layout_height="match_parent"
-                            android:background="@color/colorModuleProducts"/>
+                            android:background="?attr/colorModuleProducts"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -181,14 +231,14 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:src="@drawable/ic_products"
-                                app:tint="@color/colorModuleProducts"
+                                app:tint="?attr/colorModuleProducts"
                                 android:layout_marginBottom="10dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Products"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -196,7 +246,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Browse catalog"
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"/>
                         </LinearLayout>
@@ -218,10 +268,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/colorSurface"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/colorBorder"
+                    app:strokeColor="?attr/colorBorder"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -232,7 +282,7 @@
                         <View
                             android:layout_width="4dp"
                             android:layout_height="match_parent"
-                            android:background="@color/colorModuleNotes"/>
+                            android:background="?attr/colorModuleNotes"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -244,14 +294,14 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:src="@drawable/ic_notes"
-                                app:tint="@color/colorModuleNotes"
+                                app:tint="?attr/colorModuleNotes"
                                 android:layout_marginBottom="10dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Notes"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -259,7 +309,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Field remarks"
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"/>
                         </LinearLayout>
@@ -273,10 +323,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/colorSurface"
+                    app:cardBackgroundColor="?attr/colorSurface"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="@color/colorBorder"
+                    app:strokeColor="?attr/colorBorder"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -287,7 +337,7 @@
                         <View
                             android:layout_width="4dp"
                             android:layout_height="match_parent"
-                            android:background="@color/colorModuleSigning"/>
+                            android:background="?attr/colorModuleSigning"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -299,14 +349,14 @@
                                 android:layout_width="26dp"
                                 android:layout_height="26dp"
                                 android:src="@drawable/ic_signing"
-                                app:tint="@color/colorModuleSigning"
+                                app:tint="?attr/colorModuleSigning"
                                 android:layout_marginBottom="10dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Signatures"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -314,7 +364,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Personnel sign-off"
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"/>
                         </LinearLayout>
@@ -328,10 +378,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/colorSurface"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/colorBorder"
+                app:strokeColor="?attr/colorBorder"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -342,7 +392,7 @@
                     <View
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorModuleExport"/>
+                        android:background="?attr/colorModuleExport"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -356,7 +406,7 @@
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:src="@drawable/ic_export"
-                            app:tint="@color/colorModuleExport"
+                            app:tint="?attr/colorModuleExport"
                             android:layout_marginEnd="14dp"/>
 
                         <LinearLayout
@@ -369,7 +419,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Export"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -377,7 +427,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Close cut-off and upload data"
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"/>
                         </LinearLayout>
@@ -386,7 +436,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/colorTextMuted"/>
+                            app:tint="?attr/colorTextMuted"/>
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -395,7 +445,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorDivider"
+                android:background="?attr/colorDivider"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"/>
 
@@ -403,7 +453,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SESSIONS"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.12"
                 android:textStyle="bold"
@@ -414,10 +464,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/colorSurface"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/colorBorder"
+                app:strokeColor="?attr/colorBorder"
                 app:strokeWidth="1dp">
 
                 <LinearLayout
@@ -428,7 +478,7 @@
                     <View
                         android:layout_width="4dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorModuleSessions"/>
+                        android:background="?attr/colorModuleSessions"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -442,7 +492,7 @@
                             android:layout_width="26dp"
                             android:layout_height="26dp"
                             android:src="@drawable/ic_sessions"
-                            app:tint="@color/colorModuleSessions"
+                            app:tint="?attr/colorModuleSessions"
                             android:layout_marginEnd="14dp"/>
 
                         <LinearLayout
@@ -455,7 +505,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Open Sessions"
-                                android:textColor="@color/colorTextPrimary"
+                                android:textColor="?attr/colorTextPrimary"
                                 android:textSize="14sp"
                                 android:textStyle="bold"/>
 
@@ -464,7 +514,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="0 active sessions"
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="11sp"
                                 android:layout_marginTop="2dp"/>
                         </LinearLayout>
@@ -474,7 +524,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
-                            android:textColor="@color/colorModuleSessions"
+                            android:textColor="?attr/colorModuleSessions"
                             android:textSize="22sp"
                             android:textStyle="bold"
                             android:layout_marginEnd="8dp"/>
@@ -483,7 +533,164 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_chevron_right"
-                            app:tint="@color/colorTextMuted"/>
+                            app:tint="?attr/colorTextMuted"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Active Cut-Offs card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnActiveCutoffs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorBorder"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorModuleCutoffs"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_cutoffs"
+                            app:tint="?attr/colorModuleCutoffs"
+                            android:layout_marginEnd="14dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Active Cut-Offs"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Stores with active cut-off dates"
+                                android:textColor="?attr/colorTextSecondary"
+                                android:textSize="11sp"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_chevron_right"
+                            app:tint="?attr/colorTextMuted"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Update App section -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorDivider"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="APP"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="11sp"
+                android:letterSpacing="0.12"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnUpdateApp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="?attr/colorSurface"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:strokeColor="?attr/colorBorder"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="match_parent"
+                        android:background="?attr/colorModuleUpdate"/>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_update"
+                            app:tint="?attr/colorModuleUpdate"
+                            android:layout_marginEnd="14dp"/>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Update App"
+                                android:textColor="?attr/colorTextPrimary"
+                                android:textSize="14sp"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Download latest APK release"
+                                android:textColor="?attr/colorTextSecondary"
+                                android:textSize="11sp"
+                                android:layout_marginTop="2dp"/>
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_chevron_right"
+                            app:tint="?attr/colorTextMuted"/>
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

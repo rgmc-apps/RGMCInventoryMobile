@@ -4,18 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorBackground">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSurface"
+        android:background="?attr/colorSurface"
         app:queryHint="Search products..."
         app:iconifiedByDefault="false"
         app:queryBackground="@null"/>
 
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorder"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"

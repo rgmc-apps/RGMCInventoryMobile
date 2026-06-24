@@ -3,16 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorBackground">
 
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorder"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="16dp"
-        android:background="@color/colorSurface"
+        android:background="?attr/colorSurface"
         android:gravity="center_vertical">
 
         <TextView
@@ -20,18 +20,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tap a session to resume scanning"
-            android:textColor="@color/colorTextSecondary"
+            android:textColor="?attr/colorTextSecondary"
             android:textSize="12sp"/>
     </LinearLayout>
 
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorder"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
     <TextView
         android:id="@+id/tvEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="No open scanning sessions"
-        android:textColor="@color/colorTextSecondary"
+        android:textColor="?attr/colorTextSecondary"
         android:textSize="14sp"
         android:gravity="center"
         android:padding="48dp"

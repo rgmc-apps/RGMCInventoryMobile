@@ -10,7 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.rgmc.inventory.R
-import com.rgmc.inventory.data.local.entity.*
+import com.rgmc.inventory.data.local.entity.BrandCoordinatorEntity
+import com.rgmc.inventory.data.local.entity.BrandEntity
+import com.rgmc.inventory.data.local.entity.CustomerEntity
+import com.rgmc.inventory.data.local.entity.CustomerStoreEntity
+import com.rgmc.inventory.data.local.entity.StoreInventoryCutOffEntity
 import com.rgmc.inventory.databinding.FragmentScannerSetupBinding
 import com.rgmc.inventory.ui.viewmodel.ScannerViewModel
 import kotlinx.coroutines.flow.collectLatest
@@ -26,7 +30,6 @@ class ScannerSetupFragment : Fragment() {
     private var currentStores: List<CustomerStoreEntity> = emptyList()
     private var currentCoordinators: List<BrandCoordinatorEntity> = emptyList()
     private var currentCutOffs: List<StoreInventoryCutOffEntity> = emptyList()
-    private var currentLocations: List<StoreInventoryLocationEntity> = emptyList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentScannerSetupBinding.inflate(inflater, container, false)
@@ -45,7 +48,6 @@ class ScannerSetupFragment : Fragment() {
                 setupStoreSpinner(state.stores)
                 setupCoordinatorSpinner(state.coordinators)
                 setupCutOffSpinner(state.cutOffs)
-                setupLocationSpinner(state.locations)
                 val noCutOffs = !state.isCutOffLoading && state.selectedStore != null && state.cutOffs.isEmpty()
                 binding.spinnerCutOff.isVisible = !state.isCutOffLoading && !noCutOffs
                 binding.cutOffLoadingRow.isVisible = state.isCutOffLoading
@@ -54,8 +56,9 @@ class ScannerSetupFragment : Fragment() {
             }
         }
 
-        binding.etEncoder.setOnFocusChangeListener { _, _ -> vm.onEncoderChanged(binding.etEncoder.text.toString()) }
-        binding.etRack.setOnFocusChangeListener { _, _ -> vm.onRackChanged(binding.etRack.text.toString().toIntOrNull() ?: 1) }
+        binding.switchActiveCutoff.setOnCheckedChangeListener { _, isChecked ->
+            vm.onFilterActiveCutoffOnlyChanged(isChecked)
+        }
 
         binding.btnEnter.setOnClickListener {
             val state = vm.setupState.value
@@ -63,8 +66,6 @@ class ScannerSetupFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please select Store and Cut-Off Date", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            vm.onEncoderChanged(binding.etEncoder.text.toString())
-            vm.onRackChanged(binding.etRack.text.toString().toIntOrNull() ?: 1)
             vm.saveSetting()
             vm.createSession()
             vm.loadNavList(state.selectedStore.storeId)
@@ -137,19 +138,6 @@ class ScannerSetupFragment : Fragment() {
         }
     }
 
-    private fun setupLocationSpinner(locations: List<StoreInventoryLocationEntity>) {
-        if (locations == currentLocations) return
-        currentLocations = locations
-        val items = listOf("Select Location") + locations.map { it.locationName }
-        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-        binding.spinnerLocation.adapter = adapter
-        binding.spinnerLocation.onItemSelectedListener = object : android.widget.AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p: android.widget.AdapterView<*>?, v: View?, pos: Int, id: Long) { if (pos > 0) vm.onLocationSelected(locations[pos - 1]) }
-            override fun onNothingSelected(p: android.widget.AdapterView<*>?) {}
-        }
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -158,6 +146,5 @@ class ScannerSetupFragment : Fragment() {
         currentStores = emptyList()
         currentCoordinators = emptyList()
         currentCutOffs = emptyList()
-        currentLocations = emptyList()
     }
 }

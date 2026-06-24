@@ -2,13 +2,13 @@ package com.rgmc.inventory.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rgmc.inventory.R
 import com.rgmc.inventory.data.local.entity.StoreInventoryNAVEntity
 import com.rgmc.inventory.databinding.ItemInventoryBinding
+import com.rgmc.inventory.util.resolveAttrColor
 
 class InventoryAdapter : ListAdapter<StoreInventoryNAVEntity, InventoryAdapter.VH>(DIFF) {
     inner class VH(val binding: ItemInventoryBinding) : RecyclerView.ViewHolder(binding.root)
@@ -24,12 +24,12 @@ class InventoryAdapter : ListAdapter<StoreInventoryNAVEntity, InventoryAdapter.V
             tvNavQty.text = "${item.qty}"
             tvScanned.text = "${item.actualQty}"
             tvVariance.text = "${item.variance}"
-            val color = when {
-                item.variance < 0 -> R.color.variance_negative
-                item.variance > 0 -> R.color.variance_positive
-                else -> R.color.variance_zero
+            val attrColor = when {
+                item.variance < 0 -> R.attr.colorVarianceNegative
+                item.variance > 0 -> R.attr.colorVariancePositive
+                else -> R.attr.colorVarianceZero
             }
-            tvVariance.setTextColor(ContextCompat.getColor(root.context, color))
+            tvVariance.setTextColor(root.context.resolveAttrColor(attrColor))
         }
     }
 

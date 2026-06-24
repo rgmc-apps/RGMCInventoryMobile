@@ -16,6 +16,7 @@
         <action android:id="@+id/action_main_to_signingList" app:destination="@id/signingListFragment"/>
         <action android:id="@+id/action_main_to_export" app:destination="@id/exportFragment"/>
         <action android:id="@+id/action_main_to_openSessions" app:destination="@id/openSessionsFragment"/>
+        <action android:id="@+id/action_main_to_activeCutoffs" app:destination="@id/activeCutOffsFragment"/>
     </fragment>
 
     <fragment
@@ -105,5 +106,11 @@
         tools:layout="@layout/fragment_open_sessions">
         <action android:id="@+id/action_openSessions_to_scannerInventory" app:destination="@id/scannerInventoryFragment"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/activeCutOffsFragment"
+        android:name="com.rgmc.inventory.ui.scanner.ActiveCutOffsFragment"
+        android:label="Active Cut-Offs"
+        tools:layout="@layout/fragment_active_cutoffs"/>
 
 </navigation>

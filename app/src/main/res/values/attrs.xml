@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorBackground" format="color"/>
+    <attr name="colorBorder" format="color"/>
+    <attr name="colorDivider" format="color"/>
+    <attr name="colorSurfaceVariant" format="color"/>
+    <attr name="colorTextPrimary" format="color"/>
+    <attr name="colorTextSecondary" format="color"/>
+    <attr name="colorTextMuted" format="color"/>
+    <attr name="colorPrimaryLight" format="color"/>
+    <attr name="colorAccentLight" format="color"/>
+    <attr name="colorPositive" format="color"/>
+    <attr name="colorNegative" format="color"/>
+    <attr name="colorWarning" format="color"/>
+    <attr name="colorNeutral" format="color"/>
+    <attr name="colorModuleScanner" format="color"/>
+    <attr name="colorModuleSessions" format="color"/>
+    <attr name="colorModuleProducts" format="color"/>
+    <attr name="colorModuleNotes" format="color"/>
+    <attr name="colorModuleSigning" format="color"/>
+    <attr name="colorModuleExport" format="color"/>
+    <attr name="colorModuleUpdate" format="color"/>
+    <attr name="colorModuleCutoffs" format="color"/>
+    <attr name="colorVariancePositive" format="color"/>
+    <attr name="colorVarianceNegative" format="color"/>
+    <attr name="colorVarianceZero" format="color"/>
+</resources>

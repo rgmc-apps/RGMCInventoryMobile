@@ -11,6 +11,12 @@ interface StoreInventoryCutOffDao {
     @Query("SELECT * FROM store_inventory_cutoffs WHERE storeId = :storeId ORDER BY cutOffDate DESC")
     suspend fun getCutOffsByStore(storeId: Int): List<StoreInventoryCutOffEntity>
 
+    @Query("SELECT * FROM store_inventory_cutoffs WHERE isActive = 1 ORDER BY cutOffDate DESC")
+    suspend fun getActiveCutOffs(): List<StoreInventoryCutOffEntity>
+
+    @Query("SELECT DISTINCT storeId FROM store_inventory_cutoffs WHERE isActive = 1")
+    suspend fun getActiveStoreIds(): List<Int>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(cutOffs: List<StoreInventoryCutOffEntity>)
 

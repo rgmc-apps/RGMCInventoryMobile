@@ -25,7 +25,10 @@
       "Bash(./gradlew assembleRelease)",
       "Bash(copy \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\release\\\\app-release.apk\" \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app-release.apk\")",
       "Bash(dir \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app-release.apk\")",
-      "PowerShell(Copy-Item *)"
+      "PowerShell(Copy-Item *)",
+      "Bash(./gradlew assembleDebug)",
+      "Bash(Test-Path *)",
+      "PowerShell(Get-Item \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\release\\\\app-release.apk\" | Select-Object Name, @{N='Size MB';E={[math]::Round\\($_.Length/1MB,1\\)}}, LastWriteTime)"
     ]
   }
 }

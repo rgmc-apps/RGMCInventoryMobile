@@ -14,6 +14,7 @@ import com.rgmc.inventory.R
 import com.rgmc.inventory.databinding.ActivityMainBinding
 import com.rgmc.inventory.ui.viewmodel.ScannerViewModel
 import com.rgmc.inventory.util.ErrorReporter
+import com.rgmc.inventory.util.ThemeManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private val scannerViewModel: ScannerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeManager.applyTheme(this)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

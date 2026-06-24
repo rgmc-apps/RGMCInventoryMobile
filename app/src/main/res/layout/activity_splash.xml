@@ -4,13 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorBackground">
 
     <!-- Subtle accent line decoration -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorDivider"
+        android:background="?attr/colorDivider"
         android:alpha="0.6"
         android:layout_marginTop="110dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="RGMC INVENTORY"
-        android:textColor="@color/colorTextPrimary"
+        android:textColor="?attr/colorTextPrimary"
         android:textSize="26sp"
         android:textStyle="bold"
         android:letterSpacing="0.12"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WAREHOUSE MANAGEMENT SYSTEM"
-        android:textColor="@color/colorTextSecondary"
+        android:textColor="?attr/colorTextSecondary"
         android:textSize="11sp"
         android:letterSpacing="0.15"
         android:layout_marginTop="6dp"
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Connecting..."
-            android:textColor="@color/colorTextSecondary"
+            android:textColor="?attr/colorTextSecondary"
             android:textSize="12sp"
             android:letterSpacing="0.04"
             android:layout_marginBottom="10dp"/>
@@ -91,8 +91,8 @@
             android:layout_height="3dp"
             android:max="100"
             android:progress="0"
-            android:progressTint="@color/colorPrimaryLight"
-            android:progressBackgroundTint="@color/colorBorder"/>
+            android:progressTint="?attr/colorPrimaryLight"
+            android:progressBackgroundTint="?attr/colorBorder"/>
 
     </LinearLayout>
 
@@ -101,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="v2.0"
-        android:textColor="@color/colorTextMuted"
+        android:textColor="?attr/colorTextMuted"
         android:textSize="11sp"
         android:paddingBottom="20dp"
         android:paddingEnd="24dp"

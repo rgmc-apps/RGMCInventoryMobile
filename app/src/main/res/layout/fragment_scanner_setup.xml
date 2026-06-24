@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorBackground">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -12,7 +12,7 @@
         android:layout_height="3dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimaryLight"
+        android:indeterminateTint="?attr/colorPrimaryLight"
         android:visibility="gone"/>
 
     <ScrollView
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ASSIGNMENT"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.12"
                 android:textStyle="bold"
@@ -40,10 +40,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="@color/colorSurface"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/colorBorder"
+                app:strokeColor="?attr/colorBorder"
                 app:strokeWidth="1dp"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -53,17 +53,54 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BRAND" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BRAND" android:textColor="?attr/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
                     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp" android:layout_marginBottom="14dp">
                         <Spinner android:id="@+id/spinnerBrand" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
                     </FrameLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUSTOMER" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUSTOMER" android:textColor="?attr/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
                     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp" android:layout_marginBottom="14dp">
                         <Spinner android:id="@+id/spinnerCustomer" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
                     </FrameLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="STORE" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+                    <!-- Filter toggle: placed before Store to let users filter first -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="STORE"
+                                android:textColor="?attr/colorTextSecondary"
+                                android:textSize="10sp"
+                                android:letterSpacing="0.1"
+                                android:textStyle="bold"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Filter: active cut-off only"
+                                android:textColor="?attr/colorTextMuted"
+                                android:textSize="10sp"
+                                android:layout_marginTop="1dp"/>
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchActiveCutoff"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
                     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp">
                         <Spinner android:id="@+id/spinnerStore" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
                     </FrameLayout>
@@ -76,7 +113,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SCHEDULE"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="11sp"
                 android:letterSpacing="0.12"
                 android:textStyle="bold"
@@ -85,11 +122,11 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="@color/colorSurface"
+                android:layout_marginBottom="28dp"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/colorBorder"
+                app:strokeColor="?attr/colorBorder"
                 app:strokeWidth="1dp"
                 xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -99,12 +136,12 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="COORDINATOR" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="COORDINATOR" android:textColor="?attr/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
                     <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp" android:layout_marginBottom="14dp">
                         <Spinner android:id="@+id/spinnerCoordinator" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
                     </FrameLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUT-OFF DATE" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CUT-OFF DATE" android:textColor="?attr/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
                     <FrameLayout
                         android:id="@+id/containerCutOff"
                         android:layout_width="match_parent"
@@ -134,14 +171,14 @@
                                 android:layout_width="22dp"
                                 android:layout_height="22dp"
                                 android:indeterminate="true"
-                                android:indeterminateTint="@color/colorPrimaryLight"
+                                android:indeterminateTint="?attr/colorPrimaryLight"
                                 android:layout_marginEnd="10dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Loading cut-off dates..."
-                                android:textColor="@color/colorTextSecondary"
+                                android:textColor="?attr/colorTextSecondary"
                                 android:textSize="13sp"/>
                         </LinearLayout>
 
@@ -157,81 +194,18 @@
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_warning"
-                                app:tint="@color/colorWarning"
+                                app:tint="?attr/colorWarning"
                                 android:layout_marginEnd="8dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="No active cut-off dates for this store"
-                                android:textColor="@color/colorWarning"
+                                android:textColor="?attr/colorWarning"
                                 android:textSize="13sp"/>
                         </LinearLayout>
                     </FrameLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LOCATION" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
-                    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_input_field" android:paddingStart="12dp" android:paddingEnd="8dp">
-                        <Spinner android:id="@+id/spinnerLocation" android:layout_width="match_parent" android:layout_height="52dp" android:background="@null"/>
-                    </FrameLayout>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Section: Encoder / Rack -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PERSONNEL"
-                android:textColor="@color/colorTextSecondary"
-                android:textSize="11sp"
-                android:letterSpacing="0.12"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="28dp"
-                app:cardBackgroundColor="@color/colorSurface"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/colorBorder"
-                app:strokeWidth="1dp"
-                xmlns:app="http://schemas.android.com/apk/res-auto">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="RACK NUMBER" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
-                    <EditText
-                        android:id="@+id/etRack"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:inputType="number"
-                        android:text="1"
-                        android:hint="Rack number"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textColorHint="@color/colorTextSecondary"
-                        android:background="@drawable/bg_input_field"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:layout_marginBottom="14dp"/>
-
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ENCODER / AUDITOR NAME" android:textColor="@color/colorTextSecondary" android:textSize="10sp" android:letterSpacing="0.1" android:textStyle="bold" android:layout_marginBottom="6dp"/>
-                    <EditText
-                        android:id="@+id/etEncoder"
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:inputType="text"
-                        android:hint="Enter your name"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textColorHint="@color/colorTextSecondary"
-                        android:background="@drawable/bg_input_field"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"/>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

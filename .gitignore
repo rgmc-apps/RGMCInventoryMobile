@@ -67,3 +67,4 @@ test-results/
 # Secrets — never commit
 secrets.properties
 google-services.json
+test.txt

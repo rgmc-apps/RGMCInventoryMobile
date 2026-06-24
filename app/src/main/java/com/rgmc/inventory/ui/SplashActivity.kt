@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.rgmc.inventory.databinding.ActivitySplashBinding
 import com.rgmc.inventory.ui.viewmodel.SplashViewModel
+import com.rgmc.inventory.util.ThemeManager
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,7 @@ class SplashActivity : AppCompatActivity() {
     private val vm: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ThemeManager.applySplashTheme(this)
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorBackground">
+    android:background="?attr/colorBackground">
 
     <!-- Stats Bar -->
     <LinearLayout
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="@color/colorSurface">
+        android:background="?attr/colorSurface">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -29,14 +29,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textColor="@color/colorPrimaryLight"
+                android:textColor="?attr/colorPrimaryLight"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NAV"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="9sp"
                 android:letterSpacing="0.1"/>
         </LinearLayout>
@@ -56,14 +56,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textColor="@color/colorPositive"
+                android:textColor="?attr/colorPositive"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SCANNED"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="9sp"
                 android:letterSpacing="0.1"/>
         </LinearLayout>
@@ -82,33 +82,95 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textColor="@color/colorNegative"
+                android:textColor="?attr/colorNegative"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="VARIANCE"
-                android:textColor="@color/colorTextSecondary"
+                android:textColor="?attr/colorTextSecondary"
                 android:textSize="9sp"
                 android:letterSpacing="0.1"/>
         </LinearLayout>
     </LinearLayout>
 
+    <!-- Rack & Location Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:gravity="center_vertical"
+        android:background="?attr/colorSurface">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RACK"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="10sp"
+            android:letterSpacing="0.1"
+            android:textStyle="bold"
+            android:layout_marginEnd="6dp"/>
+
+        <EditText
+            android:id="@+id/etRack"
+            android:layout_width="52dp"
+            android:layout_height="34dp"
+            android:inputType="number"
+            android:text="1"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:background="@drawable/bg_input_field"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOCATION"
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="10sp"
+            android:letterSpacing="0.1"
+            android:textStyle="bold"
+            android:layout_marginEnd="6dp"/>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input_field"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp">
+
+            <Spinner
+                android:id="@+id/spinnerLocation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"/>
+        </FrameLayout>
+    </LinearLayout>
+
     <!-- Divider -->
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorder"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
     <!-- Search -->
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSurface"
+        android:background="?attr/colorSurface"
         app:queryHint="Search barcode or description..."
         app:iconifiedByDefault="false"
         app:queryBackground="@null"/>
 
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/colorBorder"/>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
     <!-- Progress -->
     <ProgressBar
@@ -117,7 +179,7 @@
         android:layout_height="3dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:indeterminate="true"
-        android:indeterminateTint="@color/colorPrimaryLight"
+        android:indeterminateTint="?attr/colorPrimaryLight"
         android:visibility="gone"/>
 
     <!-- List -->
@@ -135,7 +197,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="@color/colorSurface">
+        android:background="?attr/colorSurface">
+
+        <Button
+            android:id="@+id/btnClearScans"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="CLEAR"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:letterSpacing="0.06"
+            android:background="@drawable/bg_button_danger"
+            android:layout_marginEnd="8dp"/>
 
         <Button
             android:id="@+id/btnImport"
@@ -143,7 +217,7 @@
             android:layout_height="48dp"
             android:layout_weight="1"
             android:text="IMPORT"
-            android:textColor="@color/colorTextPrimary"
+            android:textColor="?attr/colorTextPrimary"
             android:textSize="13sp"
             android:letterSpacing="0.06"
             android:background="@drawable/bg_button_secondary"
@@ -154,7 +228,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="SCAN BARCODE"
+            android:text="SCAN"
             android:textColor="@color/white"
             android:textSize="13sp"
             android:letterSpacing="0.06"
