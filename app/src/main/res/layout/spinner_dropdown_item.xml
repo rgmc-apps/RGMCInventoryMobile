@@ -8,4 +8,6 @@
     android:paddingEnd="16dp"
     android:paddingTop="14dp"
     android:paddingBottom="14dp"
+    android:ellipsize="end"
+    android:maxLines="1"
     android:background="?attr/selectableItemBackground"/>

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rgmc.inventory.R
 import com.rgmc.inventory.databinding.FragmentNotesBinding
@@ -35,7 +36,10 @@ class NotesFragment : Fragment() {
         binding.rvNotes.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
-            vm.notes.collectLatest { adapter.submitList(it) }
+            vm.notes.collectLatest { notes ->
+                adapter.submitList(notes)
+                binding.tvEmpty.isVisible = notes.isEmpty()
+            }
         }
 
         binding.fabAdd.setOnClickListener {

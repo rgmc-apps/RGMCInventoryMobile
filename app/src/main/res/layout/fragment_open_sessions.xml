@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -26,22 +27,94 @@
 
     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorBorder"/>
 
-    <TextView
-        android:id="@+id/tvEmpty"
+    <!-- Content area: list OR empty state -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="No open scanning sessions"
-        android:textColor="?attr/colorTextSecondary"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:padding="48dp"
-        android:visibility="gone"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSessions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp"
-        android:clipToPadding="false"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSessions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:clipToPadding="false"/>
+
+        <!-- Empty state -->
+        <LinearLayout
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:visibility="gone">
+
+            <!-- Dashed icon container -->
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:background="@drawable/bg_empty_state_icon"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_sessions"
+                    app:tint="?attr/colorTextSecondary"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Open Sessions"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set up your store and cut-off date in the Scanner module to begin. Active sessions will appear here."
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.5"/>
+
+            <!-- Decorative dots -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="28dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/bg_empty_dot"
+                    android:layout_marginEnd="6dp"/>
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_empty_dot"
+                    android:layout_marginEnd="6dp"/>
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/bg_empty_dot"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>

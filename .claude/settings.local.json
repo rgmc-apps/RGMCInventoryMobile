@@ -28,7 +28,12 @@
       "PowerShell(Copy-Item *)",
       "Bash(./gradlew assembleDebug)",
       "Bash(Test-Path *)",
-      "PowerShell(Get-Item \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\release\\\\app-release.apk\" | Select-Object Name, @{N='Size MB';E={[math]::Round\\($_.Length/1MB,1\\)}}, LastWriteTime)"
+      "PowerShell(Get-Item \"C:\\\\RGMC\\\\Source\\\\git\\\\RGMCInventory-v2\\\\app\\\\build\\\\outputs\\\\apk\\\\release\\\\app-release.apk\" | Select-Object Name, @{N='Size MB';E={[math]::Round\\($_.Length/1MB,1\\)}}, LastWriteTime)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(Get-Item *)",
+      "Bash(sed -n '70,85p' app/src/main/res/layout/fragment_product_main.xml)",
+      "Bash(sed -n '55,65p' app/src/main/res/layout/fragment_export.xml)",
+      "Bash(xargs -I{} basename {})"
     ]
   }
 }

@@ -39,7 +39,7 @@
     <color name="light_divider">#E5E9EF</color>
     <color name="light_textPrimary">#0F172A</color>
     <color name="light_textSecondary">#64748B</color>
-    <color name="light_textMuted">#CBD5E1</color>
+    <color name="light_textMuted">#7A8FA8</color>
     <color name="light_primary">#1A56DB</color>
     <color name="light_primaryDark">#1239A5</color>
     <color name="light_primaryLight">#2563EB</color>
@@ -69,7 +69,7 @@
     <color name="min_divider">#EBEBEB</color>
     <color name="min_textPrimary">#000000</color>
     <color name="min_textSecondary">#555555</color>
-    <color name="min_textMuted">#AAAAAA</color>
+    <color name="min_textMuted">#777777</color>
     <color name="min_primary">#000000</color>
     <color name="min_primaryDark">#000000</color>
     <color name="min_primaryLight">#333333</color>

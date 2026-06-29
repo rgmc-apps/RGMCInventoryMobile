@@ -13,6 +13,110 @@
         android:padding="12dp"
         android:clipToPadding="false"/>
 
+    <!-- Empty state -->
+    <LinearLayout
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingStart="48dp"
+        android:paddingEnd="48dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp"
+        android:visibility="gone">
+
+        <!-- Dashed icon container -->
+        <LinearLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:background="@drawable/bg_empty_state_icon"
+            android:layout_marginBottom="24dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_notes"
+                app:tint="?attr/colorTextSecondary"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Notes Yet"
+            android:textColor="?attr/colorTextPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Use notes to record field remarks, store observations, or anything worth tracking during your inventory."
+            android:textColor="?attr/colorTextSecondary"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.5"/>
+
+        <!-- Action hint matching the FAB -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_input_field"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginTop="24dp">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_add"
+                app:tint="?attr/colorTextSecondary"
+                android:layout_marginEnd="7dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap + to write your first note"
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <!-- Decorative dots -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="24dp">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/bg_empty_dot"
+                android:layout_marginEnd="6dp"/>
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:background="@drawable/bg_empty_dot"
+                android:layout_marginEnd="6dp"/>
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:background="@drawable/bg_empty_dot"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"

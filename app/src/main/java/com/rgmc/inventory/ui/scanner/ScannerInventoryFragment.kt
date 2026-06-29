@@ -59,6 +59,7 @@ class ScannerInventoryFragment : Fragment() {
                 binding.tvScannedQty.text = "$totalScanned"
                 binding.tvVariance.text = "${totalScanned - totalNav}"
                 binding.progressBar.isVisible = false
+                binding.tvEmpty.isVisible = list.isEmpty()
             }
         }
 

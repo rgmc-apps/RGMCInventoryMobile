@@ -120,7 +120,7 @@
         <EditText
             android:id="@+id/etRack"
             android:layout_width="52dp"
-            android:layout_height="34dp"
+            android:layout_height="44dp"
             android:inputType="number"
             android:text="1"
             android:textColor="?attr/colorTextPrimary"
@@ -143,11 +143,11 @@
 
         <FrameLayout
             android:layout_width="0dp"
-            android:layout_height="34dp"
+            android:layout_height="44dp"
             android:layout_weight="1"
             android:background="@drawable/bg_input_field"
-            android:paddingStart="8dp"
-            android:paddingEnd="4dp">
+            android:paddingStart="12dp"
+            android:paddingEnd="8dp">
 
             <Spinner
                 android:id="@+id/spinnerLocation"
@@ -182,14 +182,125 @@
         android:indeterminateTint="?attr/colorPrimaryLight"
         android:visibility="gone"/>
 
-    <!-- List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvInventory"
+    <!-- List + empty state -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:clipToPadding="false"/>
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInventory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false"/>
+
+        <LinearLayout
+            android:id="@+id/tvEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:visibility="gone"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <!-- Dashed icon container -->
+            <LinearLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:gravity="center"
+                android:background="@drawable/bg_empty_state_icon"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/ic_import"
+                    app:tint="?attr/colorTextSecondary"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Inventory Data"
+                android:textColor="?attr/colorTextPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap IMPORT to load the NAV product list for this store and cut-off date."
+                android:textColor="?attr/colorTextSecondary"
+                android:textSize="13sp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.5"/>
+
+            <!-- IMPORT hint pill -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_input_field"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_import"
+                    app:tint="?attr/colorPrimaryLight"
+                    android:layout_marginEnd="7dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Use the IMPORT button below"
+                    android:textColor="?attr/colorPrimaryLight"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Decorative dots -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="24dp">
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/bg_empty_dot"
+                    android:layout_marginEnd="6dp"/>
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:background="@drawable/bg_empty_dot"
+                    android:layout_marginEnd="6dp"/>
+
+                <View
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:background="@drawable/bg_empty_dot"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <!-- Bottom Bar -->
     <LinearLayout

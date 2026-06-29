@@ -159,6 +159,7 @@
         <item name="android:statusBarColor">@color/min_background</item>
         <item name="android:navigationBarColor">@color/min_background</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorBackground">@color/min_background</item>
         <item name="colorTextPrimary">@color/min_textPrimary</item>
         <item name="colorTextSecondary">@color/min_textSecondary</item>
         <item name="colorTextMuted">@color/min_textMuted</item>
@@ -172,6 +173,7 @@
         <item name="android:statusBarColor">@color/light_background</item>
         <item name="android:navigationBarColor">@color/light_background</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorBackground">@color/light_background</item>
         <item name="colorTextPrimary">@color/light_textPrimary</item>
         <item name="colorTextSecondary">@color/light_textSecondary</item>
         <item name="colorTextMuted">@color/light_textMuted</item>
@@ -185,6 +187,7 @@
         <item name="android:statusBarColor">@color/dark_background</item>
         <item name="android:navigationBarColor">@color/dark_background</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="colorBackground">@color/dark_background</item>
         <item name="colorTextPrimary">@color/dark_textPrimary</item>
         <item name="colorTextSecondary">@color/dark_textSecondary</item>
         <item name="colorTextMuted">@color/dark_textMuted</item>
